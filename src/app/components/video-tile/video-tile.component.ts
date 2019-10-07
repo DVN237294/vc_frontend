@@ -9,10 +9,6 @@ import { Video } from 'src/service';
 export class VideoTileComponent implements OnInit {
 
   @Input() video: Video;
-  thumbnailUrl:string = "assets\\video.jpeg";
-  videoSubject:string = "DNP";
-  videoName:string = "Lols";
-  videoDate:Date = new Date(2019, 3, 23);
   constructor() { }
 
   ngOnInit() {
@@ -22,5 +18,10 @@ export class VideoTileComponent implements OnInit {
   {
     //clicked, to go video page
     console.log("clicked card");
+  }
+
+  setClasses()
+  {
+    return ""
   }
 }

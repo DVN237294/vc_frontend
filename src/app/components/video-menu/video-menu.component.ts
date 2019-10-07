@@ -12,8 +12,9 @@ export class VideoMenuComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
+    //temp. data:
     this.videos = [];
-    for(let i = 0; i < 16; i++)
+    for(let i = 0; i < 20; i++)
     {
       this.videos.push({
         id: i,
