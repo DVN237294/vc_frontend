@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Video } from 'src/service';
+import { Video, VideosService } from 'src/service';
 
 @Component({
   selector: 'app-video-menu',
@@ -8,31 +8,23 @@ import { Video } from 'src/service';
 })
 export class VideoMenuComponent implements OnInit {
 
-  videos:Video[]
+  videos:any[]
   constructor() { }
 
   ngOnInit() {
-    this.videos = [
-      {
-        id: 1,
+    this.videos = [];
+    for(let i = 0; i < 16; i++)
+    {
+      this.videos.push({
+        id: i,
         url: "testing",
-        duration: 333,
-        name: "fdf1"
-      },
-      {
-        id: 2,
-        url: "testing2",
-        duration: 333,
-        name: "fdf2"
-      },
-      
-      {
-        id: 3,
-        url: "testing3",
-        duration: 333,
-        name: "fdf3"
-      }
-    ];
+        duration: 333+i,
+        name: "fdf1",
+        thumbnailUrl: "assets\\video.jpeg",
+        subject: "DNP",
+        date: new Date(2019, 3, 1+i)
+      })
+    }
   }
 
 }

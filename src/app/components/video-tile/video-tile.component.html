@@ -1,8 +1,8 @@
 <div class="card" (click)="cardClicked()">
-    <h3 class="card-header">{{videoSubject}}</h3>
-    <img style="height: 300px; width: 100%; display: block;" [src]="thumbnailUrl"  class="card-img-top">
+    <h3 class="card-header">{{video.subject}}</h3>
+    <img style="height: 300px; width: 100%; display: block;" [src]="video.thumbnailUrl"  class="card-img-top">
     <div class="card-body">
         <h5 class="card-title">{{video.name}}</h5>
-        <p class="card-text">{{videoDate | date}}</p>
+        <p class="card-text">{{video.date | date}}</p>
     </div>
 </div>
