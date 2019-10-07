@@ -1,31 +1,22 @@
-import { Component, OnInit } from '@angular/core';
-import { Video, VideosService } from 'src/service';
+import { Component, OnInit, Optional, Inject, InjectionToken } from '@angular/core';
+import { VideosService } from 'src/service';
+import { environment } from '../../../environments/environment'
 
 @Component({
   selector: 'app-video-menu',
   templateUrl: './video-menu.component.html',
   styleUrls: ['./video-menu.component.css']
 })
+
 export class VideoMenuComponent implements OnInit {
 
-  videos:any[]
-  constructor() { }
+  videos:any[] = []
+  
+  constructor(private videoApi: VideosService) {
+   }
 
   ngOnInit() {
-    //temp. data:
-    this.videos = [];
-    for(let i = 0; i < 20; i++)
-    {
-      this.videos.push({
-        id: i,
-        url: "testing",
-        duration: 333+i,
-        name: "fdf1",
-        thumbnailUrl: "assets\\video.jpeg",
-        subject: "DNP",
-        date: new Date(2019, 3, 1+i)
-      })
-    }
+    this.videoApi.apiVideosGet(environment.FRONTPAGE_VIDEO_LIMIT).subscribe(vids => this.videos = vids);
   }
 
 }

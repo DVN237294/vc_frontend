@@ -49,13 +49,19 @@ export class VideosService {
 
 
     /**
+     * @param limit 
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public apiVideosGet(observe?: 'body', reportProgress?: boolean): Observable<Array<Video>>;
-    public apiVideosGet(observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Array<Video>>>;
-    public apiVideosGet(observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Array<Video>>>;
-    public apiVideosGet(observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+    public apiVideosGet(limit?: number, observe?: 'body', reportProgress?: boolean): Observable<Array<Video>>;
+    public apiVideosGet(limit?: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Array<Video>>>;
+    public apiVideosGet(limit?: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Array<Video>>>;
+    public apiVideosGet(limit?: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+
+        let queryParameters = new HttpParams({encoder: this.encoder});
+        if (limit !== undefined && limit !== null) {
+            queryParameters = queryParameters.set('limit', <any>limit);
+        }
 
         let headers = this.defaultHeaders;
 
@@ -73,6 +79,7 @@ export class VideosService {
 
         return this.httpClient.get<Array<Video>>(`${this.configuration.basePath}/api/Videos`,
             {
+                params: queryParameters,
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
                 observe: observe,

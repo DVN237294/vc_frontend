@@ -13,6 +13,7 @@ import { BASE_PATH } from '../service';
 import { environment } from '../environments/environment';
 import { VideoTileComponent } from './components/video-tile/video-tile.component';
 import { Group4Pipe } from './pipes/group4.pipe';
+
 @NgModule({
   declarations: [
     AppComponent,

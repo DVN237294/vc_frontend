@@ -9,16 +9,10 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-import { Course } from './course';
 
 
-export interface Video { 
+export interface Course { 
     id?: number;
-    url?: string | null;
-    duration?: number;
     name?: string | null;
-    course?: Course;
-    thumbnailURL?: string | null;
-    recordTimeUTC?: Date;
 }
 
