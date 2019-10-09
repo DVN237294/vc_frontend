@@ -13,6 +13,7 @@ import { BASE_PATH } from '../service';
 import { environment } from '../environments/environment';
 import { VideoTileComponent } from './components/video-tile/video-tile.component';
 import { Group4Pipe } from './pipes/group4.pipe';
+import { VideoPlayerComponent } from './components/video-player/video-player.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import { Group4Pipe } from './pipes/group4.pipe';
     NavbarComponent,
     VideoMenuComponent,
     VideoTileComponent,
-    Group4Pipe
+    Group4Pipe,
+    VideoPlayerComponent
   ],
   imports: [
     BrowserModule,
