@@ -47,15 +47,5 @@
                 </div>
             </div>
         </form>
-        <div *ngIf="registerSuccess" class="alert alert-success" role="alert">
-            <button type="button" class="close" data-dismiss="alert">&times;</button>
-            User created!
-        </div>
-        <div *ngFor="let error of errorMessages" class="alert alert-danger" role="alert">
-            <button type="button" class="close" data-dismiss="alert">&times;</button>
-            {{error}}
-        </div>
-
-
     </div>
 </div>
