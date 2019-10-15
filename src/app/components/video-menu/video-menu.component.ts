@@ -16,7 +16,7 @@ export class VideoMenuComponent implements OnInit {
    }
 
   ngOnInit() {
-    this.videoApi.apiVideosGet()
+    this.videoApi.apiVideosGet(environment.FRONTPAGE_VIDEO_LIMIT).subscribe(vids => this.videos = vids);  
   }
 
 }

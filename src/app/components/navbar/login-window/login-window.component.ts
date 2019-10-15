@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { AuthenticationService, LoginModel } from 'src/service';
 
 @Component({
   selector: 'app-login-window',
@@ -8,16 +9,21 @@ import { Component, OnInit } from '@angular/core';
 export class LoginWindowComponent implements OnInit {
 
   private memberLoginDetails: boolean = false;
-  constructor() { }
+  constructor(private api: AuthenticationService) { }
 
   ngOnInit() {
   }
 
-  loginClick(userName:string, password:String)
-  {
-    console.log(userName);
-    console.log(password);
-    console.log(this.memberLoginDetails);
+  loginClick(userName: string, pwd: string) {
+    this.api.apiAuthenticationPost({
+      userName: userName,
+      password: pwd
+    }).subscribe(result => {
+        
+    },
+      error => {
+
+      });
   }
 
 }

@@ -17,7 +17,9 @@ import { HttpClient, HttpHeaders, HttpParams,
 import { CustomHttpParameterCodec }                          from '../encoder';
 import { Observable }                                        from 'rxjs';
 
+import { AuthenticationResponse } from '../model/authenticationResponse';
 import { IdentityResult } from '../model/identityResult';
+import { LoginModel } from '../model/loginModel';
 import { UserSignupModel } from '../model/userSignupModel';
 
 import { BASE_PATH, COLLECTION_FORMATS }                     from '../variables';
@@ -48,6 +50,52 @@ export class AuthenticationService {
     }
 
 
+
+    /**
+     * @param loginModel 
+     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+     * @param reportProgress flag to report request and response progress.
+     */
+    public apiAuthenticationPost(loginModel?: LoginModel, observe?: 'body', reportProgress?: boolean): Observable<AuthenticationResponse>;
+    public apiAuthenticationPost(loginModel?: LoginModel, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<AuthenticationResponse>>;
+    public apiAuthenticationPost(loginModel?: LoginModel, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<AuthenticationResponse>>;
+    public apiAuthenticationPost(loginModel?: LoginModel, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+
+        let headers = this.defaultHeaders;
+
+        // to determine the Accept header
+        const httpHeaderAccepts: string[] = [
+            'text/plain',
+            'application/json',
+            'text/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        if (httpHeaderAcceptSelected !== undefined) {
+            headers = headers.set('Accept', httpHeaderAcceptSelected);
+        }
+
+
+        // to determine the Content-Type header
+        const consumes: string[] = [
+            'application/json',
+            'text/json',
+            'application/_*+json'
+        ];
+        const httpContentTypeSelected: string | undefined = this.configuration.selectHeaderContentType(consumes);
+        if (httpContentTypeSelected !== undefined) {
+            headers = headers.set('Content-Type', httpContentTypeSelected);
+        }
+
+        return this.httpClient.post<AuthenticationResponse>(`${this.configuration.basePath}/api/Authentication`,
+            loginModel,
+            {
+                withCredentials: this.configuration.withCredentials,
+                headers: headers,
+                observe: observe,
+                reportProgress: reportProgress
+            }
+        );
+    }
 
     /**
      * @param userSignupModel 
