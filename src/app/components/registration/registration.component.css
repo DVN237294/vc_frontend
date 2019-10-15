@@ -1,0 +1,10 @@
+.col-centered{
+    float: none;
+    margin: 0 auto;
+}
+div.form-group.required>label:first-child:after
+{
+ content:'*';
+ color:red;
+ padding-left: 5px;
+}

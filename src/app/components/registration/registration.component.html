@@ -1,0 +1,61 @@
+<div class="row">
+    <div class="col-md-4 col-centered">
+        <h1>Registration Form</h1>
+        <form [formGroup]="registrationForm">
+            <div class="form-group required">
+                <label>Username</label>
+                <input type="text" class="form-control" formControlName="UserName">
+                <label class="text-danger"
+                    *ngIf="registrationForm.get('UserName').touched && registrationForm.get('UserName').errors?.required">Username
+                    is required</label>
+                <label class="text-danger" *ngIf="registrationForm.get('UserName').errors?.minlength">Username is too
+                    short</label>
+            </div>
+            <div class="form-group">
+                <label>Email</label>
+                <input type="text" class="form-control" formControlName="Email">
+                <label class="text-danger"
+                    *ngIf="registrationForm.get('Email').touched && registrationForm.get('Email').errors?.email">Invalid
+                    email address</label>
+            </div>
+            <div class="form-group">
+                <label>Your full name</label>
+                <input type="text" class="form-control" formControlName="FullName">
+            </div>
+            <div formGroupName="Passwords">
+                <div class="form-group required">
+                    <label>Password</label>
+                    <input type="password" class="form-control" formControlName="Password">
+                    <label class="text-danger"
+                        *ngIf="registrationForm.get('Passwords.Password').touched && registrationForm.get('Passwords.Password').errors?.required">Password
+                        is required</label>
+                </div>
+                <div class="form-group required">
+                    <label>Confirm Password</label>
+                    <input type="password" class="form-control" formControlName="ConfirmPassword">
+                    <label class="text-danger"
+                        *ngIf="registrationForm.get('Passwords.ConfirmPassword').touched && registrationForm.get('Passwords.ConfirmPassword').errors?.required">Please
+                        confirm your password</label>
+                    <label class="text-danger"
+                        *ngIf="registrationForm.get('Passwords.ConfirmPassword').touched && registrationForm.get('Passwords.ConfirmPassword').errors?.passwordMismatch">Passwords
+                        doesn't match</label>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group col-md-6 offset-md-3">
+                    <button type="submit" (click)="register()" class="btn btn-primary btn-md btn-block">Sign Up</button>
+                </div>
+            </div>
+        </form>
+        <div *ngIf="registerSuccess" class="alert alert-success" role="alert">
+            <button type="button" class="close" data-dismiss="alert">&times;</button>
+            User created!
+        </div>
+        <div *ngFor="let error of errorMessages" class="alert alert-danger" role="alert">
+            <button type="button" class="close" data-dismiss="alert">&times;</button>
+            {{error}}
+        </div>
+
+
+    </div>
+</div>
