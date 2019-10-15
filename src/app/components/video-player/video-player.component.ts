@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router, NavigationStart } from '@angular/router';
+
 
 @Component({
   selector: 'app-video-player',
@@ -7,9 +9,15 @@ import { Component, OnInit } from '@angular/core';
 })
 export class VideoPlayerComponent implements OnInit {
 
-  constructor() { }
-
-  ngOnInit() {
-  }
-
+  video;
+ 
+     constructor(private router:Router, private activatedRoute:ActivatedRoute) {
+          console.log(this.router.getCurrentNavigation().extras.state);
+     }
+ 
+     ngOnInit() {
+          //console.log(history.state);
+          this.video=history.state;
+     }
+ 
 }

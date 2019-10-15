@@ -1,8 +1,11 @@
     <div class="card" (click)="cardClicked()">
         <h3 class="card-header">{{video.subject}}</h3>
-        <a routerLink="/video-player" target="_blank" click="routeWithData()"><img style="height: 150px; width: 100%; display: block;" [src]="video.thumbnailUrl || ''"  class="card-img-top"></a>
+        <a [routerLink]="'/video-player'" target="_blank" [state]=video><img style="height: 150px; width: 100%; display: block;" [src]="video.thumbnailUrl || ''"  class="card-img-top"></a>
+
         <div class="card-body">
             <h5 class="card-title">{{video.name}}</h5>
             <p class="card-text">{{video.date | date}}</p>
         </div>
     </div>
+
+    
