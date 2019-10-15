@@ -10,7 +10,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 export class VideoTileComponent implements OnInit {
 
   @Input() video: Video;
-  constructor() { 
+  constructor(private router:Router) { 
   }
 
   ngOnInit() {
@@ -18,6 +18,8 @@ export class VideoTileComponent implements OnInit {
 
   cardClicked()
   {
+    this.router.navigate(['video-player'], {state: this.video});
+
     //clicked, to go video page
   }
 
