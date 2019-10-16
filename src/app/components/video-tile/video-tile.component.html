@@ -1,8 +1,11 @@
     <div class="card" (click)="cardClicked()">
         <h3 class="card-header">{{video.subject}}</h3>
-        <img style="height: 150px; width: 100%; display: block;" [src]="video.thumbnailUrl || ''"  class="card-img-top">
+        <a target="_blank"><img style="height: 150px; width: 100%; display: block;" [src]="video.thumbnailUrl || ''"  class="card-img-top"></a>
+
         <div class="card-body">
             <h5 class="card-title">{{video.name}}</h5>
             <p class="card-text">{{video.date | date}}</p>
         </div>
     </div>
+
+    
