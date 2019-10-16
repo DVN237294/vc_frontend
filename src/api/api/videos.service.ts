@@ -65,6 +65,13 @@ export class VideosService {
 
         let headers = this.defaultHeaders;
 
+        // authentication (bearer) required
+        if (this.configuration.accessToken) {
+            const accessToken = typeof this.configuration.accessToken === 'function'
+                ? this.configuration.accessToken()
+                : this.configuration.accessToken;
+            headers = headers.set('Authorization', 'Bearer ' + accessToken);
+        }
         // to determine the Accept header
         const httpHeaderAccepts: string[] = [
             'text/plain',
@@ -103,6 +110,13 @@ export class VideosService {
 
         let headers = this.defaultHeaders;
 
+        // authentication (bearer) required
+        if (this.configuration.accessToken) {
+            const accessToken = typeof this.configuration.accessToken === 'function'
+                ? this.configuration.accessToken()
+                : this.configuration.accessToken;
+            headers = headers.set('Authorization', 'Bearer ' + accessToken);
+        }
         // to determine the Accept header
         const httpHeaderAccepts: string[] = [
         ];
@@ -137,6 +151,13 @@ export class VideosService {
 
         let headers = this.defaultHeaders;
 
+        // authentication (bearer) required
+        if (this.configuration.accessToken) {
+            const accessToken = typeof this.configuration.accessToken === 'function'
+                ? this.configuration.accessToken()
+                : this.configuration.accessToken;
+            headers = headers.set('Authorization', 'Bearer ' + accessToken);
+        }
         // to determine the Accept header
         const httpHeaderAccepts: string[] = [
         ];
@@ -172,6 +193,13 @@ export class VideosService {
 
         let headers = this.defaultHeaders;
 
+        // authentication (bearer) required
+        if (this.configuration.accessToken) {
+            const accessToken = typeof this.configuration.accessToken === 'function'
+                ? this.configuration.accessToken()
+                : this.configuration.accessToken;
+            headers = headers.set('Authorization', 'Bearer ' + accessToken);
+        }
         // to determine the Accept header
         const httpHeaderAccepts: string[] = [
         ];
@@ -215,6 +243,13 @@ export class VideosService {
 
         let headers = this.defaultHeaders;
 
+        // authentication (bearer) required
+        if (this.configuration.accessToken) {
+            const accessToken = typeof this.configuration.accessToken === 'function'
+                ? this.configuration.accessToken()
+                : this.configuration.accessToken;
+            headers = headers.set('Authorization', 'Bearer ' + accessToken);
+        }
         // to determine the Accept header
         const httpHeaderAccepts: string[] = [
         ];

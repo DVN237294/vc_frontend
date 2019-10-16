@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthenticationService, LoginModel } from 'src/service';
+import { AuthenticationService, LoginModel } from 'src/api';
+import { ToastrService, Toast } from 'ngx-toastr';
+import { LoginService } from 'src/app/services/login.service';
 
 @Component({
   selector: 'app-login-window',
@@ -9,21 +11,18 @@ import { AuthenticationService, LoginModel } from 'src/service';
 export class LoginWindowComponent implements OnInit {
 
   private memberLoginDetails: boolean = false;
-  constructor(private api: AuthenticationService) { }
+  constructor(private loginHandler:LoginService, private toast:ToastrService) { }
 
   ngOnInit() {
+
   }
 
   loginClick(userName: string, pwd: string) {
-    this.api.apiAuthenticationPost({
-      userName: userName,
-      password: pwd
-    }).subscribe(result => {
-        
-    },
-      error => {
-
-      });
+    this.loginHandler.login(userName, pwd);
   }
 
+  logout()
+  {
+    this.loginHandler.logout();
+  }
 }

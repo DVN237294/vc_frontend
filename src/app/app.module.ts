@@ -10,9 +10,9 @@ import { NavbarComponent } from './components/navbar/navbar.component';
 import { VideoMenuComponent } from './components/video-menu/video-menu.component';
 
 //API
-import { ApiModule, Configuration, ConfigurationParameters } from '../service/';
+import { ApiModule, Configuration, ConfigurationParameters } from '../api/';
 import { HttpClientModule } from '@angular/common/http';
-import { BASE_PATH } from '../service';
+import { BASE_PATH } from '../api';
 import { environment } from '../environments/environment';
 
 import { VideoTileComponent } from './components/video-tile/video-tile.component';
@@ -23,7 +23,8 @@ import { VideoPlayerComponent } from './components/video-player/video-player.com
 
 export function apiConfigFactory (): Configuration {
   const params: ConfigurationParameters = {
-    withCredentials: false
+    withCredentials: false,
+    accessToken: () => localStorage.getItem('token')
   }
   return new Configuration(params);
 }

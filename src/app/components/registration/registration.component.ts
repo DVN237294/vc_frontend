@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
-import { AuthenticationService } from 'src/service/api/authentication.service';
-import { UserSignupModel } from 'src/service/model/userSignupModel';
+import { AuthenticationService } from 'src/api/api/authentication.service';
+import { UserSignupModel } from 'src/api/model/userSignupModel';
 import { ToastrService } from 'ngx-toastr';
+import { LoginService } from 'src/app/services/login.service';
 
 
 @Component({
@@ -12,10 +13,9 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class RegistrationComponent implements OnInit {
 
-  constructor(private fb: FormBuilder, private userService: AuthenticationService, private toast: ToastrService) { }
-
-  registerSuccess: boolean = false;
-  errorMessages: string[] = [];
+  constructor(
+     private fb: FormBuilder,
+     private loginHandler:LoginService) { }
 
   ngOnInit() {
   }
@@ -49,18 +49,7 @@ export class RegistrationComponent implements OnInit {
         fullName: this.registrationForm.value.FullName,
         password: this.registrationForm.value.Passwords.ConfirmPassword
       }
-      this.registerSuccess = false;
-      this.errorMessages = [];
-      this.userService.apiAuthenticationRegisterPost(user).subscribe(
-        r => {
-          if (r.succeeded)
-            this.toast.success("Account created!");
-          else
-            r.errors.forEach(error => this.toast.error(error.description));
-        },
-        e => {
-          this.toast.error("Connection error", e.statusText);
-        });
+      this.loginHandler.registerAccount(user);
     }
   }
 }

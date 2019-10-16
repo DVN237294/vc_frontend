@@ -1,5 +1,5 @@
 import { Component, OnInit, Optional, Inject, InjectionToken } from '@angular/core';
-import { VideosService } from 'src/service';
+import { VideosService } from 'src/api';
 import { environment } from '../../../environments/environment'
 
 @Component({
