@@ -36,7 +36,7 @@ export function apiConfigFactory (): Configuration {
     VideoMenuComponent,
     VideoTileComponent,
     Group4Pipe,
-    VideoPlayerComponent
+    VideoPlayerComponent,
     LoginWindowComponent,
     RegistrationComponent
   ],

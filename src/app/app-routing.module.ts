@@ -7,9 +7,8 @@ import { VideoPlayerComponent } from './components/video-player/video-player.com
 const routes: Routes = [
   { path: '', component: VideoMenuComponent},
   { path: 'video-player', component: VideoPlayerComponent },
+  { path: 'register', component: RegistrationComponent }
 ];
-
-const routes: Routes = [];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],

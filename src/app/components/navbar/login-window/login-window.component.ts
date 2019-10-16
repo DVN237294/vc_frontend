@@ -1,6 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthenticationService, LoginModel } from 'src/api';
-import { ToastrService, Toast } from 'ngx-toastr';
 import { LoginService } from 'src/app/services/login.service';
 
 @Component({
@@ -11,7 +9,7 @@ import { LoginService } from 'src/app/services/login.service';
 export class LoginWindowComponent implements OnInit {
 
   private memberLoginDetails: boolean = false;
-  constructor(private loginHandler:LoginService, private toast:ToastrService) { }
+  constructor(private loginHandler:LoginService) { }
 
   ngOnInit() {
 
