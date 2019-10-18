@@ -1,10 +1,10 @@
     <div class="card" (click)="cardClicked()">
-        <h3 class="card-header">{{video.subject}}</h3>
-        <a target="_blank"><img style="height: 150px; width: 100%; display: block;" [src]="video.thumbnailUrl || ''"  class="card-img-top"></a>
+        <h3 class="card-header">{{video.course.name}}</h3>
+        <a target="_blank"><img style="height: 150px; width: 100%; display: block;" [src]="video.thumbnailURL || ''"  class="card-img-top"></a>
 
         <div class="card-body">
             <h5 class="card-title">{{video.name}}</h5>
-            <p class="card-text">{{video.date | date}}</p>
+            <p class="card-text">{{video.recordTimeUTC | date}}</p>
         </div>
     </div>
 

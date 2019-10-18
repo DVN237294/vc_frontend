@@ -1,3 +1,5 @@
 export const environment = {
-  production: true
+  production: true,
+  API_BASE_PATH: 'https://vc-api.amavin.dk',
+  FRONTPAGE_VIDEO_LIMIT: 16
 };
