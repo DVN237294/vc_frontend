@@ -1,0 +1,57 @@
+<ul class="dropdown-menu dropdown-menu-right" style="margin-right:0.5rem; padding: 15px;min-width: 250px;">
+    <div *ngIf="!loginHandler.isLoggedIn()">
+        <li>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form" role="form" method="post" action="login" accept-charset="UTF-8" id="login-nav">
+                        <div class="form-group">
+                            <label class="sr-only" for="inputUserName">User Name</label>
+                            <input #userName type="email" class="form-control" id="inputUserName"
+                                placeholder="User Name" required>
+                        </div>
+                        <div class="form-group">
+                            <label class="sr-only" for="inputPassword">Password</label>
+                            <input #password type="password" class="form-control" id="inputPassword"
+                                placeholder="Password" required>
+                        </div>
+                        <div class="checkbox">
+                            <label>
+                                <input type="checkbox" [checked]="memberLoginDetails"
+                                    (change)="memberLoginDetails = !memberLoginDetails"> Remember me
+                            </label>
+                        </div>
+                        <div class="form-group">
+                            <button (click)="loginClick(userName.value, password.value)" type="submit"
+                                class="btn btn-success btn-block">Sign In</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </li>
+        <li>
+            <hr />
+        </li>
+        <li>
+            <input class="btn btn-primary btn-block" type="button" id="sign-in-google" value="Sign In with Google">
+            <input class="btn btn-primary btn-block" type="button" id="sign-in-twitter" value="Sign In with Twitter">
+        </li>
+        <li>
+            <hr />
+        </li>
+        <li>
+            <div class="form-group">
+                <button [routerLink]="['/register']" type="submit" class="btn btn-secondary btn-block">Sign Up</button>
+            </div>
+        </li>
+    </div>
+    <div *ngIf="loginHandler.isLoggedIn()">
+        <li>
+            <h1>{{loginHandler.getUserName()}}</h1>
+        </li>
+        <li>
+            <div class="form-group">
+                <button (click)="logout()" type="submit" class="btn btn-secondary btn-block">Sign Out</button>
+            </div>
+        </li>
+    </div>
+</ul>

@@ -3,6 +3,7 @@ import { Configuration } from './configuration';
 import { HttpClient } from '@angular/common/http';
 
 
+import { AuthenticationService } from './api/authentication.service';
 import { VideosService } from './api/videos.service';
 
 @NgModule({
@@ -10,6 +11,7 @@ import { VideosService } from './api/videos.service';
   declarations: [],
   exports:      [],
   providers: [
+    AuthenticationService,
     VideosService ]
 })
 export class ApiModule {

@@ -1,5 +1,5 @@
-import { Component, OnInit, Optional, Inject, InjectionToken } from '@angular/core';
-import { VideosService } from 'src/service';
+import { Component, OnInit } from '@angular/core';
+import { VideosService } from 'src/api';
 import { environment } from '../../../environments/environment'
 
 @Component({
@@ -16,7 +16,7 @@ export class VideoMenuComponent implements OnInit {
    }
 
   ngOnInit() {
-    this.videoApi.apiVideosGet(environment.FRONTPAGE_VIDEO_LIMIT).subscribe(vids => this.videos = vids);
+    this.videoApi.apiVideosGet(environment.FRONTPAGE_VIDEO_LIMIT).subscribe(vids => this.videos = vids);  
   }
 
 }

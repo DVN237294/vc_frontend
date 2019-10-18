@@ -1,6 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { Video } from 'src/service';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Video } from 'src/api';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-video-tile',
@@ -19,15 +19,6 @@ export class VideoTileComponent implements OnInit {
   cardClicked()
   {
     this.router.navigate(['video-player'], {state: this.video});
-
-    //clicked, to go video page
   }
-
-  setClasses()
-  {
-    return ""
-  }
-
- 
-  }
+}
 
