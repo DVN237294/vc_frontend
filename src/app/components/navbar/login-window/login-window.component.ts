@@ -8,8 +8,8 @@ import { LoginService } from 'src/app/services/login.service';
 })
 export class LoginWindowComponent implements OnInit {
 
-  private memberLoginDetails: boolean = false;
-  constructor(private loginHandler:LoginService) { }
+  memberLoginDetails: boolean = false;
+  constructor(public loginHandler:LoginService) { }
 
   ngOnInit() {
 
