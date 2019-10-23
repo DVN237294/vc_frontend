@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { EnrollmentsService, Enrollment, Session } from 'src/api';
+import { EnrollmentsService, Enrollment, Session, Video } from 'src/api';
 import { environment } from '../../../environments/environment'
 
 @Component({
@@ -9,28 +9,24 @@ import { environment } from '../../../environments/environment'
 })
 export class MyEnrollmentVideosComponent implements OnInit {
 
-  enrollments:Enrollment[] = [];
+  enrollments: any[] = [];
 
   constructor(private enrollApi: EnrollmentsService) { }
 
   ngOnInit() {
-    this.enrollApi.apiEnrollmentsMyEnrollmentsGet(environment.FRONTPAGE_VIDEO_LIMIT, true, false, true,)
+    this.enrollApi.apiEnrollmentsMyEnrollmentsGet(environment.FRONTPAGE_VIDEO_LIMIT, true, false, true)
       .subscribe(
-        result =>
-        {
+        result => {
           this.enrollments = result;
         },
-        error =>
-        {
+        error => {
           console.log("error: ");
           console.log(error);
         }
       );
   }
 
-  flattenSessionVideos(sessions:Session[])
-  {
-    return [].concat.apply([], sessions.map(s => s.recordings));
+  flattenSessionVideos(sessions: Session[]):Video[] {
+    return [].concat.apply([], sessions.map(s => s.recordings).filter(e => e != null));
   }
-
 }
