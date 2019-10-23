@@ -9,12 +9,12 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-import { Session } from './session';
 
 
-export interface Course { 
+export interface User { 
     id?: number;
-    name?: string | null;
-    sessions?: Array<Session> | null;
+    userName?: string | null;
+    fullName?: string | null;
+    email?: string | null;
 }
 
