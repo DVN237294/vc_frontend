@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { VideosService } from 'src/api';
+import { Component, OnInit, Input } from '@angular/core';
+import { VideosService, Video } from 'src/api';
 import { environment } from '../../../environments/environment'
 
 @Component({
@@ -10,13 +10,14 @@ import { environment } from '../../../environments/environment'
 
 export class VideoMenuComponent implements OnInit {
 
-  videos:any[] = []
+  @Input() videos: Video[] = [];
   
   constructor(private videoApi: VideosService) {
    }
 
   ngOnInit() {
-    this.videoApi.apiVideosGet(environment.FRONTPAGE_VIDEO_LIMIT).subscribe(vids => this.videos = vids);  
+    if(this.videos.length === 0)
+      this.videoApi.apiVideosGet(environment.FRONTPAGE_VIDEO_LIMIT).subscribe(vids => this.videos = vids);  
   }
 
 }

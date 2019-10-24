@@ -9,12 +9,14 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-import { Session } from './session';
+import { User } from './user';
+import { Course } from './course';
 
 
-export interface Course { 
+export interface Enrollment { 
     id?: number;
-    name?: string | null;
-    sessions?: Array<Session> | null;
+    user?: User;
+    course?: Course;
+    enrollmentDateUtc?: Date;
 }
 

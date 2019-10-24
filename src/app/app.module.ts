@@ -11,7 +11,7 @@ import { VideoMenuComponent } from './components/video-menu/video-menu.component
 
 //API
 import { ApiModule, Configuration, ConfigurationParameters } from '../api/';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { BASE_PATH } from '../api';
 import { environment } from '../environments/environment';
 
@@ -20,6 +20,10 @@ import { Group4Pipe } from './pipes/group4.pipe';
 import { LoginWindowComponent } from './components/navbar/login-window/login-window.component';
 import { RegistrationComponent } from './components/registration/registration.component';
 import { VideoPlayerComponent } from './components/video-player/video-player.component';
+import { Router } from '@angular/router';
+import { AuthInterceptor } from './http-interceptor';
+import { LoginService } from './services/login.service';
+import { MyEnrollmentVideosComponent } from './components/my-enrollment-videos/my-enrollment-videos.component';
 
 export function apiConfigFactory (): Configuration {
   const params: ConfigurationParameters = {
@@ -38,7 +42,8 @@ export function apiConfigFactory (): Configuration {
     Group4Pipe,
     VideoPlayerComponent,
     LoginWindowComponent,
-    RegistrationComponent
+    RegistrationComponent,
+    MyEnrollmentVideosComponent
   ],
   imports: [
     BrowserModule,
@@ -54,7 +59,22 @@ export function apiConfigFactory (): Configuration {
       progressBar: true
     })
   ],
-  providers: [ {provide: BASE_PATH, useValue: environment.API_BASE_PATH } ],
+  providers: [ 
+    {
+      provide: BASE_PATH,
+      useValue: environment.API_BASE_PATH 
+    },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useFactory: function(router: Router, loginService:LoginService) {
+        return new AuthInterceptor(router, loginService);
+      },
+      multi: true,
+      deps: [Router, LoginService]
+   },
+   ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
+
+
