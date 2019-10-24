@@ -9,12 +9,12 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-import { Session } from './session';
+import { Video } from './video';
 
 
-export interface Course { 
-    id?: number;
-    name?: string | null;
-    sessions?: Array<Session> | null;
+export interface AddSessionModel { 
+    date?: Date;
+    recordings?: Array<Video> | null;
+    participantUserIds?: Array<number> | null;
 }
 

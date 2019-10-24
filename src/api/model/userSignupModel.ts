@@ -15,6 +15,6 @@ export interface UserSignupModel {
     fullName?: string | null;
     userName?: string | null;
     password?: string | null;
-    emailAddress?: string | null;
+    email?: string | null;
 }
 

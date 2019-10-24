@@ -4,6 +4,8 @@ import { HttpClient } from '@angular/common/http';
 
 
 import { AuthenticationService } from './api/authentication.service';
+import { CoursesService } from './api/courses.service';
+import { EnrollmentsService } from './api/enrollments.service';
 import { VideosService } from './api/videos.service';
 
 @NgModule({
@@ -12,6 +14,8 @@ import { VideosService } from './api/videos.service';
   exports:      [],
   providers: [
     AuthenticationService,
+    CoursesService,
+    EnrollmentsService,
     VideosService ]
 })
 export class ApiModule {

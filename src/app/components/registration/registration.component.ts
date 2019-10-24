@@ -43,7 +43,7 @@ export class RegistrationComponent implements OnInit {
     if (this.registrationForm.valid) {
       const user: UserSignupModel = {
         userName: this.registrationForm.value.UserName,
-        emailAddress: this.registrationForm.value.Email,
+        email: this.registrationForm.value.Email,
         fullName: this.registrationForm.value.FullName,
         password: this.registrationForm.value.Passwords.ConfirmPassword
       }

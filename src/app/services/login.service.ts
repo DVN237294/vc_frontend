@@ -2,29 +2,35 @@ import { Injectable } from '@angular/core';
 import { AuthenticationService } from 'src/api/api/authentication.service';
 import { ToastrService, Toast } from 'ngx-toastr';
 import { UserSignupModel } from 'src/api/model/userSignupModel';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
 })
 export class LoginService {
 
-  constructor(private userService: AuthenticationService, private toast:ToastrService) { }
+  constructor(private userService: AuthenticationService, private toast:ToastrService, private router:Router) { }
 
   login(userName:string, password:string)
   {
     this.userService.apiAuthenticationPost({
       userName: userName,
       password: password
-    }).subscribe(result => {
-        localStorage.setItem('token', result.token);
-        localStorage.setItem('userName', result.userName);
-        this.toast.success("Successful!", "Login");
-    },
-      () => {
-        this.toast.error("Failed", "Login");
-        localStorage.removeItem('token');
-        localStorage.removeItem('userName');
-      });
+    }).subscribe(r => this.handleSuccessLogin(r), () => this.handleFailedLogin());
+  }
+
+  private handleSuccessLogin(result)
+  {
+    localStorage.setItem('token', result.token);
+    localStorage.setItem('userName', result.userName);
+    this.toast.success("Successful!", "Login");
+    this.router.navigateByUrl('/myEnrollments');
+  }
+  private handleFailedLogin()
+  {
+    localStorage.removeItem('token');
+    localStorage.removeItem('userName');
+    this.toast.error("Failed", "Login");
   }
 
   logout()
@@ -32,6 +38,7 @@ export class LoginService {
     localStorage.removeItem('token');
     localStorage.removeItem('userName');
     this.toast.info("Logged out");
+    this.router.navigateByUrl('/');
   }
 
   isLoggedIn()
