@@ -20,14 +20,11 @@ import { Group4Pipe } from './pipes/group4.pipe';
 import { LoginWindowComponent } from './components/navbar/login-window/login-window.component';
 import { RegistrationComponent } from './components/registration/registration.component';
 import { VideoPlayerComponent } from './components/video-player/video-player.component';
-<<<<<<< HEAD
 import { CommentsComponent } from './components/comments/comments.component';
-=======
 import { Router } from '@angular/router';
 import { AuthInterceptor } from './http-interceptor';
 import { LoginService } from './services/login.service';
 import { MyEnrollmentVideosComponent } from './components/my-enrollment-videos/my-enrollment-videos.component';
->>>>>>> 5440095c5f389fc05958fc130d4823942dfe8dfa
 
 export function apiConfigFactory (): Configuration {
   const params: ConfigurationParameters = {
@@ -47,11 +44,8 @@ export function apiConfigFactory (): Configuration {
     VideoPlayerComponent,
     LoginWindowComponent,
     RegistrationComponent,
-<<<<<<< HEAD
-    CommentsComponent
-=======
+    CommentsComponent,
     MyEnrollmentVideosComponent
->>>>>>> 5440095c5f389fc05958fc130d4823942dfe8dfa
   ],
   imports: [
     BrowserModule,
