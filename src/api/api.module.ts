@@ -4,6 +4,7 @@ import { HttpClient } from '@angular/common/http';
 
 
 import { AuthenticationService } from './api/authentication.service';
+import { CommentsService } from './api/comments.service';
 import { CoursesService } from './api/courses.service';
 import { EnrollmentsService } from './api/enrollments.service';
 import { VideosService } from './api/videos.service';
@@ -14,6 +15,7 @@ import { VideosService } from './api/videos.service';
   exports:      [],
   providers: [
     AuthenticationService,
+    CommentsService,
     CoursesService,
     EnrollmentsService,
     VideosService ]
