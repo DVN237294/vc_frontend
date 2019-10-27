@@ -20,11 +20,16 @@ import { Group4Pipe } from './pipes/group4.pipe';
 import { LoginWindowComponent } from './components/navbar/login-window/login-window.component';
 import { RegistrationComponent } from './components/registration/registration.component';
 import { VideoPlayerComponent } from './components/video-player/video-player.component';
-import { CommentsComponent } from './components/comments/comments.component';
 import { Router } from '@angular/router';
 import { AuthInterceptor } from './http-interceptor';
 import { LoginService } from './services/login.service';
 import { MyEnrollmentVideosComponent } from './components/my-enrollment-videos/my-enrollment-videos.component';
+import { FromNowPipe } from './pipes/from-now.pipe';
+
+import {MatTableModule, MatFormField} from '@angular/material';
+import {MatFormFieldModule } from '@angular/material';
+import {MatIconModule} from '@angular/material';
+import {MatInputModule} from '@angular/material';
 
 export function apiConfigFactory (): Configuration {
   const params: ConfigurationParameters = {
@@ -44,10 +49,14 @@ export function apiConfigFactory (): Configuration {
     VideoPlayerComponent,
     LoginWindowComponent,
     RegistrationComponent,
-    CommentsComponent,
-    MyEnrollmentVideosComponent
+    MyEnrollmentVideosComponent,
+    FromNowPipe
   ],
   imports: [
+    MatTableModule, 
+    MatFormFieldModule,
+    MatIconModule,
+    MatInputModule,
     BrowserModule,
     AppRoutingModule,
     ApiModule.forRoot(apiConfigFactory),

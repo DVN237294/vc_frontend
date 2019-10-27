@@ -1,1 +1,0 @@
-import { CommentsComponent } from './comments.component';

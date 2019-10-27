@@ -17,7 +17,7 @@ import { HttpClient, HttpHeaders, HttpParams,
 import { CustomHttpParameterCodec }                          from '../encoder';
 import { Observable }                                        from 'rxjs';
 
-import { Comment } from '../model/comment';
+import { Video } from '../model/video';
 
 import { BASE_PATH, COLLECTION_FORMATS }                     from '../variables';
 import { Configuration }                                     from '../configuration';
@@ -26,7 +26,7 @@ import { Configuration }                                     from '../configurat
 @Injectable({
   providedIn: 'root'
 })
-export class CommentsService {
+export class VideosService {
 
     protected basePath = 'http://localhost';
     public defaultHeaders = new HttpHeaders();
@@ -49,13 +49,19 @@ export class CommentsService {
 
 
     /**
+     * @param limit 
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public apiCommentsGet(observe?: 'body', reportProgress?: boolean): Observable<Array<Comment>>;
-    public apiCommentsGet(observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Array<Comment>>>;
-    public apiCommentsGet(observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Array<Comment>>>;
-    public apiCommentsGet(observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+    public apiVideosGet(limit?: number, observe?: 'body', reportProgress?: boolean): Observable<Array<Video>>;
+    public apiVideosGet(limit?: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Array<Video>>>;
+    public apiVideosGet(limit?: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Array<Video>>>;
+    public apiVideosGet(limit?: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+
+        let queryParameters = new HttpParams({encoder: this.encoder});
+        if (limit !== undefined && limit !== null) {
+            queryParameters = queryParameters.set('limit', <any>limit);
+        }
 
         let headers = this.defaultHeaders;
 
@@ -78,8 +84,9 @@ export class CommentsService {
         }
 
 
-        return this.httpClient.get<Array<Comment>>(`${this.configuration.basePath}/api/Comments`,
+        return this.httpClient.get<Array<Video>>(`${this.configuration.basePath}/api/Videos`,
             {
+                params: queryParameters,
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
                 observe: observe,
@@ -93,12 +100,12 @@ export class CommentsService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public apiCommentsIdDelete(id: number, observe?: 'body', reportProgress?: boolean): Observable<any>;
-    public apiCommentsIdDelete(id: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
-    public apiCommentsIdDelete(id: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
-    public apiCommentsIdDelete(id: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+    public apiVideosIdDelete(id: number, observe?: 'body', reportProgress?: boolean): Observable<any>;
+    public apiVideosIdDelete(id: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
+    public apiVideosIdDelete(id: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
+    public apiVideosIdDelete(id: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
         if (id === null || id === undefined) {
-            throw new Error('Required parameter id was null or undefined when calling apiCommentsIdDelete.');
+            throw new Error('Required parameter id was null or undefined when calling apiVideosIdDelete.');
         }
 
         let headers = this.defaultHeaders;
@@ -119,7 +126,7 @@ export class CommentsService {
         }
 
 
-        return this.httpClient.delete<any>(`${this.configuration.basePath}/api/Comments/${encodeURIComponent(String(id))}`,
+        return this.httpClient.delete<any>(`${this.configuration.basePath}/api/Videos/${encodeURIComponent(String(id))}`,
             {
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
@@ -134,12 +141,12 @@ export class CommentsService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public apiCommentsIdGet(id: number, observe?: 'body', reportProgress?: boolean): Observable<any>;
-    public apiCommentsIdGet(id: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
-    public apiCommentsIdGet(id: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
-    public apiCommentsIdGet(id: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+    public apiVideosIdGet(id: number, observe?: 'body', reportProgress?: boolean): Observable<any>;
+    public apiVideosIdGet(id: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
+    public apiVideosIdGet(id: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
+    public apiVideosIdGet(id: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
         if (id === null || id === undefined) {
-            throw new Error('Required parameter id was null or undefined when calling apiCommentsIdGet.');
+            throw new Error('Required parameter id was null or undefined when calling apiVideosIdGet.');
         }
 
         let headers = this.defaultHeaders;
@@ -160,7 +167,7 @@ export class CommentsService {
         }
 
 
-        return this.httpClient.get<any>(`${this.configuration.basePath}/api/Comments/${encodeURIComponent(String(id))}`,
+        return this.httpClient.get<any>(`${this.configuration.basePath}/api/Videos/${encodeURIComponent(String(id))}`,
             {
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
@@ -172,18 +179,16 @@ export class CommentsService {
 
     /**
      * @param id 
-     * @param comment 
+     * @param video 
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public apiCommentsPost(id?: number, comment?: Comment, observe?: 'body', reportProgress?: boolean): Observable<any>;
-    public apiCommentsPost(id?: number, comment?: Comment, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
-    public apiCommentsPost(id?: number, comment?: Comment, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
-    public apiCommentsPost(id?: number, comment?: Comment, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
-
-        let queryParameters = new HttpParams({encoder: this.encoder});
-        if (id !== undefined && id !== null) {
-            queryParameters = queryParameters.set('id', <any>id);
+    public apiVideosIdPut(id: number, video?: Video, observe?: 'body', reportProgress?: boolean): Observable<any>;
+    public apiVideosIdPut(id: number, video?: Video, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
+    public apiVideosIdPut(id: number, video?: Video, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
+    public apiVideosIdPut(id: number, video?: Video, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+        if (id === null || id === undefined) {
+            throw new Error('Required parameter id was null or undefined when calling apiVideosIdPut.');
         }
 
         let headers = this.defaultHeaders;
@@ -215,10 +220,59 @@ export class CommentsService {
             headers = headers.set('Content-Type', httpContentTypeSelected);
         }
 
-        return this.httpClient.post<any>(`${this.configuration.basePath}/api/Comments`,
-            comment,
+        return this.httpClient.put<any>(`${this.configuration.basePath}/api/Videos/${encodeURIComponent(String(id))}`,
+            video,
             {
-                params: queryParameters,
+                withCredentials: this.configuration.withCredentials,
+                headers: headers,
+                observe: observe,
+                reportProgress: reportProgress
+            }
+        );
+    }
+
+    /**
+     * @param video 
+     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+     * @param reportProgress flag to report request and response progress.
+     */
+    public apiVideosPost(video?: Video, observe?: 'body', reportProgress?: boolean): Observable<any>;
+    public apiVideosPost(video?: Video, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
+    public apiVideosPost(video?: Video, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
+    public apiVideosPost(video?: Video, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+
+        let headers = this.defaultHeaders;
+
+        // authentication (bearer) required
+        if (this.configuration.accessToken) {
+            const accessToken = typeof this.configuration.accessToken === 'function'
+                ? this.configuration.accessToken()
+                : this.configuration.accessToken;
+            headers = headers.set('Authorization', 'Bearer ' + accessToken);
+        }
+        // to determine the Accept header
+        const httpHeaderAccepts: string[] = [
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        if (httpHeaderAcceptSelected !== undefined) {
+            headers = headers.set('Accept', httpHeaderAcceptSelected);
+        }
+
+
+        // to determine the Content-Type header
+        const consumes: string[] = [
+            'application/json',
+            'text/json',
+            'application/_*+json'
+        ];
+        const httpContentTypeSelected: string | undefined = this.configuration.selectHeaderContentType(consumes);
+        if (httpContentTypeSelected !== undefined) {
+            headers = headers.set('Content-Type', httpContentTypeSelected);
+        }
+
+        return this.httpClient.post<any>(`${this.configuration.basePath}/api/Videos`,
+            video,
+            {
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
                 observe: observe,
