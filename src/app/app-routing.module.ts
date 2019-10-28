@@ -6,12 +6,14 @@ import { VideoPlayerComponent } from './components/video-player/video-player.com
 import { MyEnrollmentVideosComponent } from './components/my-enrollment-videos/my-enrollment-videos.component';
 import { AuthGuard } from './guards/authguard.guard';
 import { FrontpageGuard } from './guards/frontpage.guard';
+import { AboutComponent } from './components/about/about.component';
 
 const routes: Routes = [
   { path: '', component: VideoMenuComponent, canActivate: [FrontpageGuard] },
   { path: 'myEnrollments', component: MyEnrollmentVideosComponent, canActivate: [AuthGuard]},
   { path: 'video-player', component: VideoPlayerComponent },
-  { path: 'register', component: RegistrationComponent }
+  { path: 'register', component: RegistrationComponent },
+  { path: 'about', component: AboutComponent }
 ];
 
 @NgModule({
