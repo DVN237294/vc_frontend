@@ -30,17 +30,17 @@ comments: Comment[] = new Array();
   }
   
   createComment(value:string) {
-    if(value)
-    this.commentsService.apiCommentsPost(this.video.id, value).subscribe(
-      (val) =>{
-        console.log("POST call succesfull", val)
+    if(value) {
+    this.commentsService.apiCommentsPost(value, this.video.id).subscribe(
+      (value)=>{
+        console.log("POST call successful", value)
       this.refresh();
       },
       response =>{
         console.log("POST call in error", response);
       });
   }
-  
+}
 
   refresh() {
     this.video = history.state;

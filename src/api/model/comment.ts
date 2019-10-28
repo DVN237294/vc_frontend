@@ -14,7 +14,6 @@
 export interface Comment { 
     id?: number;
     userName?: string | null;
-    videoId?: number;
     message?: string | null;
     commentTime?: Date;
 }
