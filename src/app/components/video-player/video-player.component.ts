@@ -24,9 +24,14 @@ comments: Comment[] = new Array();
   constructor(private commentsService: CommentsService) {
   }
 
-  createComment(value) {
+  ngOnInit() {
+    this.video = history.state;
+    this.commentsService.apiCommentsIdGet(this.video.id).subscribe(data=>this.dataSource= new MatTableDataSource<Comment>(data));  
+  }
+  
+  createComment(value:string) {
     if(value)
-    this.commentsService.apiCommentsPost(this.video.id).subscribe(
+    this.commentsService.apiCommentsPost(this.video.id, value).subscribe(
       (val) =>{
         console.log("POST call succesfull", val)
       this.refresh();
@@ -34,11 +39,6 @@ comments: Comment[] = new Array();
       response =>{
         console.log("POST call in error", response);
       });
-    }
-
-   ngOnInit() {
-    this.video = history.state;
-    this.commentsService.apiCommentsIdGet(this.video.id).subscribe(data=>this.dataSource= new MatTableDataSource<Comment>(data));  
   }
   
 

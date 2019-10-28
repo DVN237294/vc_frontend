@@ -175,14 +175,14 @@ export class CommentsService {
 
     /**
      * @param id 
-     * @param comment 
+     * @param body 
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public apiCommentsPost(id?: number, comment?: Comment, observe?: 'body', reportProgress?: boolean): Observable<any>;
-    public apiCommentsPost(id?: number, comment?: Comment, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
-    public apiCommentsPost(id?: number, comment?: Comment, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
-    public apiCommentsPost(id?: number, comment?: Comment, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+    public apiCommentsPost(id?: number, body?: string, observe?: 'body', reportProgress?: boolean): Observable<any>;
+    public apiCommentsPost(id?: number, body?: string, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
+    public apiCommentsPost(id?: number, body?: string, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
+    public apiCommentsPost(id?: number, body?: string, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
 
         let queryParameters = new HttpParams({encoder: this.encoder});
         if (id !== undefined && id !== null) {
@@ -219,7 +219,7 @@ export class CommentsService {
         }
 
         return this.httpClient.post<any>(`${this.configuration.basePath}/api/Comments`,
-            comment,
+            body,
             {
                 params: queryParameters,
                 withCredentials: this.configuration.withCredentials,
