@@ -51,6 +51,7 @@ comments: Comment[] = new Array();
     if (confirm("Are you sure you want to delete this comment?")) {
       this.commentsService.apiCommentsIdDelete(row.id).subscribe(
         (val) => {
+          console.log("POST call succesfull", val)
           this.refresh();
         }
       )
