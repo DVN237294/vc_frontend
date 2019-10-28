@@ -19,7 +19,7 @@ export class VideoPlayerComponent implements OnInit {
 comments: Comment[] = new Array(); 
   video: Video;
   dataSource = new MatTableDataSource<Comment>();
-  displayedColumns: string[] = ['user','comment','commentdate'];
+  displayedColumns: string[] = ['user','comment','commentdate', 'actions'];
   
   constructor(private commentsService: CommentsService) {
   }
@@ -39,11 +39,11 @@ comments: Comment[] = new Array();
    ngOnInit() {
     this.video = history.state;
     this.commentsService.apiCommentsIdGet(this.video.id).subscribe(data=>this.dataSource= new MatTableDataSource<Comment>(data));  
-    this.video = history.state;
   }
   
 
   refresh() {
+    this.video = history.state;
     this.commentsService.apiCommentsIdGet(this.video.id).subscribe(data=>this.dataSource= new MatTableDataSource<Comment>(data));  
   }
 

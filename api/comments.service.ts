@@ -49,14 +49,13 @@ export class CommentsService {
 
 
     /**
-     * @param body 
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public apiCommentsGet(body?: number, observe?: 'body', reportProgress?: boolean): Observable<Array<Comment>>;
-    public apiCommentsGet(body?: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Array<Comment>>>;
-    public apiCommentsGet(body?: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Array<Comment>>>;
-    public apiCommentsGet(body?: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+    public apiCommentsGet(observe?: 'body', reportProgress?: boolean): Observable<Array<Comment>>;
+    public apiCommentsGet(observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Array<Comment>>>;
+    public apiCommentsGet(observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Array<Comment>>>;
+    public apiCommentsGet(observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
 
         let headers = this.defaultHeaders;
 
@@ -78,17 +77,6 @@ export class CommentsService {
             headers = headers.set('Accept', httpHeaderAcceptSelected);
         }
 
-
-        // to determine the Content-Type header
-        const consumes: string[] = [
-            'application/json',
-            'text/json',
-            'application/_*+json'
-        ];
-        const httpContentTypeSelected: string | undefined = this.configuration.selectHeaderContentType(consumes);
-        if (httpContentTypeSelected !== undefined) {
-            headers = headers.set('Content-Type', httpContentTypeSelected);
-        }
 
         return this.httpClient.get<Array<Comment>>(`${this.configuration.basePath}/api/Comments`,
             {
