@@ -9,16 +9,12 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-import { Comment } from './comment';
 
 
-export interface Video { 
+export interface Comment { 
     id?: number;
-    url?: string | null;
-    duration?: number;
-    comments?: Array<Comment> | null;
-    name?: string | null;
-    thumbnailURL?: string | null;
-    recordTimeUtc?: Date;
+    userName?: string | null;
+    message?: string | null;
+    commentTime?: Date;
 }
 

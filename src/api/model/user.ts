@@ -9,6 +9,7 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
+import { Comment } from './comment';
 
 
 export interface User { 
@@ -16,5 +17,6 @@ export interface User {
     userName?: string | null;
     fullName?: string | null;
     email?: string | null;
+    comments?: Array<Comment> | null;
 }
 

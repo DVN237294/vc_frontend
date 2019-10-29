@@ -1,5 +1,6 @@
 export * from './addSessionModel';
 export * from './authenticationResponse';
+export * from './comment';
 export * from './course';
 export * from './enrollUserModel';
 export * from './enrollment';
