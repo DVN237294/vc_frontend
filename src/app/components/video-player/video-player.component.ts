@@ -9,6 +9,8 @@ import { MatFormFieldModule } from '@angular/material';
 import {DataSource} from '@angular/cdk/collections';
 import {MatIconModule} from '@angular/material';
 import {MatFormFieldControl} from '@angular/material';
+import { JsonPipe } from '@angular/common';
+import { stringify } from '@angular/compiler/src/util';
 
 @Component({
   selector: 'app-video-player',
@@ -31,7 +33,7 @@ comments: Comment[] = new Array();
   
   createComment(value:string) {
     if(value) {
-    this.commentsService.apiCommentsPost(value, this.video.id).subscribe(
+    this.commentsService.apiCommentsPost(this.video.id, JSON.parse(value)).subscribe(
       (value)=>{
         console.log("POST call successful", value)
       this.refresh();
