@@ -49,46 +49,6 @@ export class CommentsService {
 
 
     /**
-     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
-     * @param reportProgress flag to report request and response progress.
-     */
-    public apiCommentsGet(observe?: 'body', reportProgress?: boolean): Observable<Array<Comment>>;
-    public apiCommentsGet(observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Array<Comment>>>;
-    public apiCommentsGet(observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Array<Comment>>>;
-    public apiCommentsGet(observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
-
-        let headers = this.defaultHeaders;
-
-        // authentication (bearer) required
-        if (this.configuration.accessToken) {
-            const accessToken = typeof this.configuration.accessToken === 'function'
-                ? this.configuration.accessToken()
-                : this.configuration.accessToken;
-            headers = headers.set('Authorization', 'Bearer ' + accessToken);
-        }
-        // to determine the Accept header
-        const httpHeaderAccepts: string[] = [
-            'text/plain',
-            'application/json',
-            'text/json'
-        ];
-        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        if (httpHeaderAcceptSelected !== undefined) {
-            headers = headers.set('Accept', httpHeaderAcceptSelected);
-        }
-
-
-        return this.httpClient.get<Array<Comment>>(`${this.configuration.basePath}/api/Comments`,
-            {
-                withCredentials: this.configuration.withCredentials,
-                headers: headers,
-                observe: observe,
-                reportProgress: reportProgress
-            }
-        );
-    }
-
-    /**
      * @param id 
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
@@ -130,66 +90,22 @@ export class CommentsService {
     }
 
     /**
-     * @param id 
-     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
-     * @param reportProgress flag to report request and response progress.
-     */
-    public apiCommentsIdGet(id: number, observe?: 'body', reportProgress?: boolean): Observable<Array<Comment>>;
-    public apiCommentsIdGet(id: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Array<Comment>>>;
-    public apiCommentsIdGet(id: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Array<Comment>>>;
-    public apiCommentsIdGet(id: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
-        if (id === null || id === undefined) {
-            throw new Error('Required parameter id was null or undefined when calling apiCommentsIdGet.');
-        }
-
-        let headers = this.defaultHeaders;
-
-        // authentication (bearer) required
-        if (this.configuration.accessToken) {
-            const accessToken = typeof this.configuration.accessToken === 'function'
-                ? this.configuration.accessToken()
-                : this.configuration.accessToken;
-            headers = headers.set('Authorization', 'Bearer ' + accessToken);
-        }
-        // to determine the Accept header
-        const httpHeaderAccepts: string[] = [
-            'text/plain',
-            'application/json',
-            'text/json'
-        ];
-        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        if (httpHeaderAcceptSelected !== undefined) {
-            headers = headers.set('Accept', httpHeaderAcceptSelected);
-        }
-
-
-        return this.httpClient.get<Array<Comment>>(`${this.configuration.basePath}/api/Comments/${encodeURIComponent(String(id))}`,
-            {
-                withCredentials: this.configuration.withCredentials,
-                headers: headers,
-                observe: observe,
-                reportProgress: reportProgress
-            }
-        );
-    }
-
-    /**
      * @param message 
-     * @param id 
+     * @param videoId 
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public apiCommentsPost(message?: string, id?: number, observe?: 'body', reportProgress?: boolean): Observable<any>;
-    public apiCommentsPost(message?: string, id?: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
-    public apiCommentsPost(message?: string, id?: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
-    public apiCommentsPost(message?: string, id?: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+    public apiCommentsPost(message?: string, videoId?: number, observe?: 'body', reportProgress?: boolean): Observable<any>;
+    public apiCommentsPost(message?: string, videoId?: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
+    public apiCommentsPost(message?: string, videoId?: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
+    public apiCommentsPost(message?: string, videoId?: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
 
         let queryParameters = new HttpParams({encoder: this.encoder});
         if (message !== undefined && message !== null) {
             queryParameters = queryParameters.set('message', <any>message);
         }
-        if (id !== undefined && id !== null) {
-            queryParameters = queryParameters.set('id', <any>id);
+        if (videoId !== undefined && videoId !== null) {
+            queryParameters = queryParameters.set('videoId', <any>videoId);
         }
 
         let headers = this.defaultHeaders;
@@ -214,6 +130,50 @@ export class CommentsService {
             null,
             {
                 params: queryParameters,
+                withCredentials: this.configuration.withCredentials,
+                headers: headers,
+                observe: observe,
+                reportProgress: reportProgress
+            }
+        );
+    }
+
+    /**
+     * @param videoId 
+     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+     * @param reportProgress flag to report request and response progress.
+     */
+    public apiCommentsVideoIdGet(videoId: number, observe?: 'body', reportProgress?: boolean): Observable<Array<Comment>>;
+    public apiCommentsVideoIdGet(videoId: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Array<Comment>>>;
+    public apiCommentsVideoIdGet(videoId: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Array<Comment>>>;
+    public apiCommentsVideoIdGet(videoId: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+        if (videoId === null || videoId === undefined) {
+            throw new Error('Required parameter videoId was null or undefined when calling apiCommentsVideoIdGet.');
+        }
+
+        let headers = this.defaultHeaders;
+
+        // authentication (bearer) required
+        if (this.configuration.accessToken) {
+            const accessToken = typeof this.configuration.accessToken === 'function'
+                ? this.configuration.accessToken()
+                : this.configuration.accessToken;
+            headers = headers.set('Authorization', 'Bearer ' + accessToken);
+        }
+        // to determine the Accept header
+        const httpHeaderAccepts: string[] = [
+            'text/plain',
+            'application/json',
+            'text/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        if (httpHeaderAcceptSelected !== undefined) {
+            headers = headers.set('Accept', httpHeaderAcceptSelected);
+        }
+
+
+        return this.httpClient.get<Array<Comment>>(`${this.configuration.basePath}/api/Comments/${encodeURIComponent(String(videoId))}`,
+            {
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
                 observe: observe,
