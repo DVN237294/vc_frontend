@@ -1,16 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { Video } from 'src/api';
-import { CommentsService, Comment, VideosService } from 'src/api';
-import { AuthenticationService, User } from 'src/api';
-import { environment } from '../../../environments/environment'
-import { Router } from '@angular/router';
 import { MatTableDataSource } from '@angular/material';
-import { MatFormFieldModule } from '@angular/material';
-import {DataSource} from '@angular/cdk/collections';
-import {MatIconModule} from '@angular/material';
-import {MatFormFieldControl} from '@angular/material';
-import { JsonPipe } from '@angular/common';
-import { stringify } from '@angular/compiler/src/util';
+import { Comment, CommentsService, Video } from 'src/api';
 
 @Component({
   selector: 'app-video-player',
