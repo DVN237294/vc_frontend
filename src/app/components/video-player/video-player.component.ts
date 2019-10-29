@@ -33,7 +33,7 @@ comments: Comment[] = new Array();
   
   createComment(value:string) {
     if(value) {
-    this.commentsService.apiCommentsPost(this.video.id, JSON.parse(value)).subscribe(
+    this.commentsService.apiCommentsPost(value, this.video.id).subscribe(
       (value)=>{
         console.log("POST call successful", value)
       this.refresh();

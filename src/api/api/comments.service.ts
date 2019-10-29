@@ -174,17 +174,20 @@ export class CommentsService {
     }
 
     /**
+     * @param message 
      * @param id 
-     * @param body 
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public apiCommentsPost(id?: number, body?: string, observe?: 'body', reportProgress?: boolean): Observable<any>;
-    public apiCommentsPost(id?: number, body?: string, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
-    public apiCommentsPost(id?: number, body?: string, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
-    public apiCommentsPost(id?: number, body?: string, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+    public apiCommentsPost(message?: string, id?: number, observe?: 'body', reportProgress?: boolean): Observable<any>;
+    public apiCommentsPost(message?: string, id?: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
+    public apiCommentsPost(message?: string, id?: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
+    public apiCommentsPost(message?: string, id?: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
 
         let queryParameters = new HttpParams({encoder: this.encoder});
+        if (message !== undefined && message !== null) {
+            queryParameters = queryParameters.set('message', <any>message);
+        }
         if (id !== undefined && id !== null) {
             queryParameters = queryParameters.set('id', <any>id);
         }
@@ -207,19 +210,8 @@ export class CommentsService {
         }
 
 
-        // to determine the Content-Type header
-        const consumes: string[] = [
-            'application/json',
-            'text/json',
-            'application/_*+json'
-        ];
-        const httpContentTypeSelected: string | undefined = this.configuration.selectHeaderContentType(consumes);
-        if (httpContentTypeSelected !== undefined) {
-            headers = headers.set('Content-Type', httpContentTypeSelected);
-        }
-
         return this.httpClient.post<any>(`${this.configuration.basePath}/api/Comments`,
-            body,
+            null,
             {
                 params: queryParameters,
                 withCredentials: this.configuration.withCredentials,
