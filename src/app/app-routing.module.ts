@@ -7,13 +7,16 @@ import { MyEnrollmentVideosComponent } from './components/my-enrollment-videos/m
 import { AuthGuard } from './guards/authguard.guard';
 import { FrontpageGuard } from './guards/frontpage.guard';
 import { AboutComponent } from './components/about/about.component';
+import { CommentsComponent } from './components/comments/comments.component';
+import { from } from 'rxjs';
 
 const routes: Routes = [
   { path: '', component: VideoMenuComponent, canActivate: [FrontpageGuard] },
   { path: 'myEnrollments', component: MyEnrollmentVideosComponent, canActivate: [AuthGuard]},
   { path: 'video-player', component: VideoPlayerComponent },
   { path: 'register', component: RegistrationComponent },
-  { path: 'about', component: AboutComponent }
+  { path: 'about', component: AboutComponent },
+  { path: 'comments', component: CommentsComponent}
 ];
 
 @NgModule({

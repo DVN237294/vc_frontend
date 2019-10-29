@@ -31,6 +31,7 @@ import {MatFormFieldModule } from '@angular/material';
 import {MatIconModule} from '@angular/material';
 import {MatInputModule} from '@angular/material';
 import { AboutComponent } from './components/about/about.component';
+import { CommentsComponent } from './components/comments/comments.component';
 
 export function apiConfigFactory (): Configuration {
   const params: ConfigurationParameters = {
@@ -52,7 +53,8 @@ export function apiConfigFactory (): Configuration {
     RegistrationComponent,
     MyEnrollmentVideosComponent,
     FromNowPipe,
-    AboutComponent
+    AboutComponent,
+    CommentsComponent
   ],
   imports: [
     MatTableModule, 

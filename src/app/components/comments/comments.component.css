@@ -1,0 +1,27 @@
+div {
+    padding: 30px;
+}
+
+table {
+    width: 100%;
+}
+
+th, td {
+    text-align: left;
+    padding: 8px;
+    word-wrap: break-word;
+    text-align: left;
+    max-width: 400px;
+
+  }
+  
+  mat-form-field {
+    width:90%;
+  }
+
+  button {
+    float: right;
+  }
+
+  
+ 
