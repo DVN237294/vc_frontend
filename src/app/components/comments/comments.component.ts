@@ -16,7 +16,7 @@ export class CommentsComponent implements OnInit {
 
   ngOnInit() {
     this.video = history.state;
-    this.commentsService.apiCommentsIdGet(this.video.id).subscribe(data=>this.dataSource= new MatTableDataSource<Comment>(data));  
+    this.commentsService.apiCommentsVideoIdGet(this.video.id).subscribe(data=>this.dataSource= new MatTableDataSource<Comment>(data));  
   }
   
   createComment(value:string) {
@@ -34,7 +34,7 @@ export class CommentsComponent implements OnInit {
 
   refresh() {
     this.video = history.state;
-    this.commentsService.apiCommentsIdGet(this.video.id).subscribe(data=>this.dataSource= new MatTableDataSource<Comment>(data));  
+    this.commentsService.apiCommentsVideoIdGet(this.video.id).subscribe(data=>this.dataSource= new MatTableDataSource<Comment>(data));  
   }
 
   onDelete(row: Comment) {
