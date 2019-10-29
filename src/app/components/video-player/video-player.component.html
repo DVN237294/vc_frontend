@@ -6,22 +6,22 @@
 </div>
 <div>
 <div>
-  <mat-form-field><input #commentInput type="text" matInput placeholder="Leave your comment"></mat-form-field>
+  <mat-form-field><input #commentInput type="text" matInput placeholder="Add public comment"></mat-form-field>
 
-<button mat-raised-button (click)="createComment(commentInput.value)">Add Comment</button>
+<button mat-raised-button class="btn btn-secondary disabled" (click)="createComment(commentInput.value)">Add Comment</button>
 
-<table mat-table [dataSource]="dataSource" class="mat-elevation-z6">
+<table mat-table [dataSource]="dataSource" class="table table-hover">
 
   <!--User Column-->
   <ng-container matColumnDef="user">
     <th mat-header-cell *matHeaderCellDef>UserName</th>
-    <td mat-cell *matCellDef="let element">{{element.userName}}</td>
+    <td class="username" mat-cell *matCellDef="let element"><div>{{element.userName}}</div></td>
   </ng-container>
 
   <!--Comment Column-->
-  <ng-container class="table-light" matColumnDef="comment">
+  <ng-container matColumnDef="comment">
     <th mat-header-cell *matHeaderCellDef>Comment</th>
-    <td mat-cell *matCellDef="let element">{{element.message}}</td>
+    <td mat-cell *matCellDef="let element"><div>{{element.message}}</div></td>
   </ng-container>
 
   <!--Date Column-->
@@ -33,7 +33,7 @@
   <ng-container matColumnDef="actions">
     <th mat-header-cell *matHeaderCellDef></th>
     <td mat-cell *matCellDef="let row">
-      <button mat-icon-button color ="warn" (click)="onDelete(row)">
+      <button class="delete" mat-icon-button color ="warn" (click)="onDelete(row)">
         <mat-icon>delete_outline</mat-icon>
       </button>
     </td>
