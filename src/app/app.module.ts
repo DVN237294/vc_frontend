@@ -25,6 +25,7 @@ import { AuthInterceptor } from './http-interceptor';
 import { LoginService } from './services/login.service';
 import { MyEnrollmentVideosComponent } from './components/my-enrollment-videos/my-enrollment-videos.component';
 import { AboutComponent } from './components/about/about.component';
+import { LockFilterPipe } from './lock-filter.pipe';
 
 export function apiConfigFactory (): Configuration {
   const params: ConfigurationParameters = {
@@ -45,7 +46,8 @@ export function apiConfigFactory (): Configuration {
     LoginWindowComponent,
     RegistrationComponent,
     MyEnrollmentVideosComponent,
-    AboutComponent
+    AboutComponent,
+    LockFilterPipe
   ],
   imports: [
     BrowserModule,
