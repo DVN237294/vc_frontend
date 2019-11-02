@@ -24,10 +24,8 @@
       <div class="panel panel-default col-xs-12 col-sm-11" *ngFor="let lock of locked | LockFilter: query">
       <input type="checkbox" (change)="openModal($event, lock)" class="check" id="{{lock.ID}}">
       <label [for]="lock.ID" class="check-label"></label>
-      <h3 class="card-text name">{{lock.User}}</h3>
-      <h3 class="card-text auth">{{lock.AuthID}}</h3>
-      <h3 class="card-text form">{{lock.FormName}}</h3>
-      <h3 class="card-text win">{{lock.WinHandle}}</h3>
+      <h3 class="card-text name">{{lock.Users}}</h3>
+      <h3 class="card-text auth">{{lock.Videos}}</h3>
   </div>
     </div>
     <div class="nav navbar-nav navbar-right">
