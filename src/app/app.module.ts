@@ -24,8 +24,15 @@ import { Router } from '@angular/router';
 import { AuthInterceptor } from './http-interceptor';
 import { LoginService } from './services/login.service';
 import { MyEnrollmentVideosComponent } from './components/my-enrollment-videos/my-enrollment-videos.component';
+import { FromNowPipe } from './pipes/from-now.pipe';
+
+import {MatTableModule, MatFormField} from '@angular/material';
+import {MatFormFieldModule } from '@angular/material';
+import {MatIconModule} from '@angular/material';
+import {MatInputModule} from '@angular/material';
 import { AboutComponent } from './components/about/about.component';
-import { LockFilterPipe } from './lock-filter.pipe';
+import { LockFilterPipe } from './pipes/lock-filter.pipe';
+import { CommentsComponent } from './components/comments/comments.component';
 
 export function apiConfigFactory (): Configuration {
   const params: ConfigurationParameters = {
@@ -47,9 +54,16 @@ export function apiConfigFactory (): Configuration {
     RegistrationComponent,
     MyEnrollmentVideosComponent,
     AboutComponent,
-    LockFilterPipe
+    LockFilterPipe,
+    FromNowPipe,
+    AboutComponent,
+    CommentsComponent
   ],
   imports: [
+    MatTableModule, 
+    MatFormFieldModule,
+    MatIconModule,
+    MatInputModule,
     BrowserModule,
     AppRoutingModule,
     ApiModule.forRoot(apiConfigFactory),
