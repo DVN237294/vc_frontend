@@ -20,13 +20,9 @@
       </li>
     </ul>
     <div class="form-group">
-      <input type="text" class="form-control" placeholder="Search" [(ngModel)]="query" id="listSearch">
-      <div class="panel panel-default col-xs-12 col-sm-11" *ngFor="let lock of locked | LockFilter: query">
-      <input type="checkbox" (change)="openModal($event, lock)" class="check" id="{{lock.ID}}">
-      <label [for]="lock.ID" class="check-label"></label>
-      <h3 class="card-text name">{{lock.Users}}</h3>
-      <h3 class="card-text auth">{{lock.Videos}}</h3>
-  </div>
+      <input type="search" class="form-control" placeholder="Search" [(ngModel)]="searchTerm" style="width: 300px;">
+      <div *ngFor="let video of videos | filter: searchTerm">
+      </div>
     </div>
     <div class="nav navbar-nav navbar-right">
       <button class="btn btn-secondary my-2 my-sm-0 dropdown" style="margin-right:0.5rem" data-toggle="dropdown">Account</button>

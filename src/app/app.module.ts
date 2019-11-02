@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { ToastrModule } from 'ngx-toastr';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { FormsModule } from '@angular/forms';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -31,8 +32,8 @@ import {MatFormFieldModule } from '@angular/material';
 import {MatIconModule} from '@angular/material';
 import {MatInputModule} from '@angular/material';
 import { AboutComponent } from './components/about/about.component';
-import { LockFilterPipe } from './pipes/lock-filter.pipe';
 import { CommentsComponent } from './components/comments/comments.component';
+import { SearchPipe } from './pipes/search.pipe';
 
 export function apiConfigFactory (): Configuration {
   const params: ConfigurationParameters = {
@@ -54,10 +55,10 @@ export function apiConfigFactory (): Configuration {
     RegistrationComponent,
     MyEnrollmentVideosComponent,
     AboutComponent,
-    LockFilterPipe,
     FromNowPipe,
     AboutComponent,
-    CommentsComponent
+    CommentsComponent,
+    SearchPipe,
   ],
   imports: [
     MatTableModule, 
@@ -70,6 +71,7 @@ export function apiConfigFactory (): Configuration {
     HttpClientModule,
     ReactiveFormsModule,
     BrowserAnimationsModule,
+    FormsModule,
     ToastrModule.forRoot({
       timeOut: 10000,
       positionClass: 'toast-bottom-right',
