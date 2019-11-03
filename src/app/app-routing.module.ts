@@ -8,6 +8,7 @@ import { AuthGuard } from './guards/authguard.guard';
 import { FrontpageGuard } from './guards/frontpage.guard';
 import { AboutComponent } from './components/about/about.component';
 import { CommentsComponent } from './components/comments/comments.component';
+import { NavbarComponent } from './components/navbar/navbar.component';
 import { from } from 'rxjs';
 
 const routes: Routes = [
@@ -17,7 +18,8 @@ const routes: Routes = [
   { path: 'video-player', component: VideoPlayerComponent },
   { path: 'register', component: RegistrationComponent },
   { path: 'about', component: AboutComponent },
-  { path: 'comments', component: CommentsComponent}
+  { path: 'comments', component: CommentsComponent},
+  {path: 'nav-bar', component: NavbarComponent }
 ];
 
 @NgModule({

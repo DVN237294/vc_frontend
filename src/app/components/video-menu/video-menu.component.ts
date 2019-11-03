@@ -22,7 +22,7 @@ export class VideoMenuComponent implements OnInit {
   ngOnInit() {
 
     this.videoApi.apiVideosController2Get(this.videoName).subscribe(
-    name => { this.videos = name; this.videoName = history.state});
+    name => {this.videos = name; this.videoName = history.state});
         
     } 
 

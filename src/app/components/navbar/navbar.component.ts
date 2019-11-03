@@ -21,11 +21,12 @@ videoName: string;
   this.videoForm.valueChanges.subscribe(
     term => {
       if(term) {
-        this.videoName= term;
-        this.router.navigate(['video-menu', {state: term}]);
+        this.videoName = term;
         this.videoService.apiVideosController2Get(term).subscribe(
           data => {
             this.videos = data;
+            if(this.videoName)
+            this.router.navigate(['video-menu', {state: this.videoName}]);
             console.log(data);
           }
         )
