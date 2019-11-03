@@ -53,12 +53,14 @@ export class VideosController2Service {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public apiVideosController2NameGet(name: string, observe?: 'body', reportProgress?: boolean): Observable<Array<Video>>;
-    public apiVideosController2NameGet(name: string, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Array<Video>>>;
-    public apiVideosController2NameGet(name: string, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Array<Video>>>;
-    public apiVideosController2NameGet(name: string, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
-        if (name === null || name === undefined) {
-            throw new Error('Required parameter name was null or undefined when calling apiVideosController2NameGet.');
+    public apiVideosController2Get(name?: string, observe?: 'body', reportProgress?: boolean): Observable<Array<Video>>;
+    public apiVideosController2Get(name?: string, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Array<Video>>>;
+    public apiVideosController2Get(name?: string, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Array<Video>>>;
+    public apiVideosController2Get(name?: string, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+
+        let queryParameters = new HttpParams({encoder: this.encoder});
+        if (name !== undefined && name !== null) {
+            queryParameters = queryParameters.set('name', <any>name);
         }
 
         let headers = this.defaultHeaders;
@@ -82,8 +84,9 @@ export class VideosController2Service {
         }
 
 
-        return this.httpClient.get<Array<Video>>(`${this.configuration.basePath}/api/VideosController2/${encodeURIComponent(String(name))}`,
+        return this.httpClient.get<Array<Video>>(`${this.configuration.basePath}/api/VideosController2`,
             {
+                params: queryParameters,
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
                 observe: observe,

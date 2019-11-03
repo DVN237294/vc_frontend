@@ -1,6 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { VideosService, Video } from 'src/api';
 import { environment } from '../../../environments/environment'
+import { VideosController2Service } from 'src/api';
 
 @Component({
   selector: 'app-video-menu',
@@ -16,8 +17,12 @@ export class VideoMenuComponent implements OnInit {
    }
 
   ngOnInit() {
-    if(this.videos.length === 0)
-      this.videoApi.apiVideosGet(environment.FRONTPAGE_VIDEO_LIMIT).subscribe(vids => this.videos = vids);  
+    
+    this.videos = history.state;
+        
+        } 
+
   }
 
-}
+ 
+

@@ -12,6 +12,7 @@ import { from } from 'rxjs';
 
 const routes: Routes = [
   { path: '', component: VideoMenuComponent, canActivate: [FrontpageGuard] },
+  {path: 'video-menu', component: VideoMenuComponent},
   { path: 'myEnrollments', component: MyEnrollmentVideosComponent, canActivate: [AuthGuard]},
   { path: 'video-player', component: VideoPlayerComponent },
   { path: 'register', component: RegistrationComponent },
