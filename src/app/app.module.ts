@@ -4,7 +4,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { ToastrModule } from 'ngx-toastr';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule } from '@angular/forms';
-
+import { MatAutocompleteModule } from '@angular/material';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
@@ -33,7 +33,6 @@ import {MatIconModule} from '@angular/material';
 import {MatInputModule} from '@angular/material';
 import { AboutComponent } from './components/about/about.component';
 import { CommentsComponent } from './components/comments/comments.component';
-import { SearchPipe } from './pipes/search.pipe';
 
 export function apiConfigFactory (): Configuration {
   const params: ConfigurationParameters = {
@@ -58,13 +57,13 @@ export function apiConfigFactory (): Configuration {
     FromNowPipe,
     AboutComponent,
     CommentsComponent,
-    SearchPipe,
   ],
   imports: [
     MatTableModule, 
     MatFormFieldModule,
     MatIconModule,
     MatInputModule,
+    MatAutocompleteModule,
     BrowserModule,
     AppRoutingModule,
     ApiModule.forRoot(apiConfigFactory),
