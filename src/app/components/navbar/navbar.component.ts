@@ -18,11 +18,10 @@ videoName: string;
 
   ngOnInit() {
 
-
   this.videoForm.valueChanges.subscribe(
     term => {
       if(term) {
-        this.videoService.apiVideosController2NameGet(term).subscribe(
+        this.videoService.apiVideosController2Get(term).subscribe(
           data => {
             this.videos = data;
             console.log(data);
@@ -32,7 +31,7 @@ videoName: string;
     }
   );
 
-  this.router.navigate(['/video-menu', {state: this.videos}]);
+  this.router.navigate(['/video-menu', {state: this.videoName}]);
 }
    
 }

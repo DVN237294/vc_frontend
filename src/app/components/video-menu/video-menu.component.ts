@@ -12,13 +12,14 @@ import { VideosController2Service } from 'src/api';
 export class VideoMenuComponent implements OnInit {
 
   @Input() videos: Video[] = [];
-  
-  constructor(private videoApi: VideosService) {
+  videoName: string; 
+
+  constructor(private videoApi: VideosController2Service) {
    }
 
   ngOnInit() {
-    
-    this.videos = history.state;
+    this.videoApi.apiVideosController2Get(this.videoName).subscribe(
+    name => { this.videos = name; this.videoName = history.state});
         
         } 
 
