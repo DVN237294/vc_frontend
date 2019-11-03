@@ -22,7 +22,7 @@
     <div>
     <mat-form-field>
         <input style="text-transform: lowercase;" matInput type="text" placeholder="Search for video name" matInput [formControl]="videoForm" 
-        [ngModel]="nameOfVideo" name="VideoName" [matAutocomplete]="auto">
+        [ngModel]="videoName" name="VideoName" [matAutocomplete]="auto">
       <mat-autocomplete #auto="matAutocomplete">
         <mat-option *ngFor="let video of videos" [value]="video.name">
           <small>{{video.name}}</small> 
