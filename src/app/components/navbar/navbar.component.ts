@@ -25,7 +25,6 @@ videoName: string;
         this.videoService.apiVideosController2Get(term).subscribe(
           data => {
             this.videos = data;
-            if(this.videoName)
             this.router.navigate(['video-menu', {state: this.videoName}]);
             console.log(data);
           }
