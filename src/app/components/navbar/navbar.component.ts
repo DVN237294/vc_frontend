@@ -22,6 +22,7 @@ videoName: any;
   this.videoForm.valueChanges.subscribe(
     term => {
       if(term) {
+        this.videoName = term;
         this.videoService.apiVideosController2Get(term).subscribe(
           data => {
             this.videos = data;
