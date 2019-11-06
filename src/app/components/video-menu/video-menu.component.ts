@@ -13,14 +13,14 @@ import {Router} from '@angular/router';
 export class VideoMenuComponent implements OnInit {
 
   @Input() videos: Video[] = [];
-  videoName: string; 
+  videoName: any; 
   
   constructor(private videoApi: VideosController2Service, private router: Router) {
+    this.videoName = this.router.getCurrentNavigation().extras.state;
   }
 
    
   ngOnInit() {
-
     this.videoApi.apiVideosController2Get(this.videoName).subscribe(
     name => {this.videos = name; this.videoName = history.state});
         
