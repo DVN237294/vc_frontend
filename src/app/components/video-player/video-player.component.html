@@ -1,7 +1,7 @@
 <div id="player-overlay">
     <h1>{{video.name}}</h1>
     <video controls>
-        <source [src]="video.url" type="video/mp4">
+        <source [src]="getVideoUrl()" type="video/mp4">
       </video>
 </div>
 <div><app-comments></app-comments></div>
