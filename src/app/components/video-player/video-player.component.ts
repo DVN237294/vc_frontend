@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Video } from 'src/api';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-video-player',
@@ -16,6 +17,9 @@ export class VideoPlayerComponent implements OnInit {
     this.video = history.state;
   }
 
+  getVideoUrl() {
+    return environment.API_BASE_PATH + this.video.streamUrl
+  }
 }
 
 

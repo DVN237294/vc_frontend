@@ -8,4 +8,6 @@ export * from './enrollments.service';
 import { EnrollmentsService } from './enrollments.service';
 export * from './videos.service';
 import { VideosService } from './videos.service';
-export const APIS = [AuthenticationService, CommentsService, CoursesService, EnrollmentsService, VideosService];
+export * from './videostream.service';
+import { VideostreamService } from './videostream.service';
+export const APIS = [AuthenticationService, CommentsService, CoursesService, EnrollmentsService, VideosService, VideostreamService];
