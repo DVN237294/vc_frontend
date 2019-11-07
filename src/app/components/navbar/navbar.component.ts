@@ -1,11 +1,10 @@
-import { Component, OnInit, Output, EventEmitter, Input, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
-import { VideosController2Service, AuthenticationService } from 'src/api';
+import { VideosController2Service } from 'src/api';
 import { Video } from 'src/api';
 import { Router } from '@angular/router';
-import { VideoMenuComponent } from '../video-menu/video-menu.component';
-import { Observable, of, concat, } from 'rxjs';
-import { mergeAll, switchMap, filter, debounceTime } from 'rxjs/operators';
+import { Observable } from 'rxjs';
+import { switchMap, filter, debounceTime } from 'rxjs/operators';
 
 @Component({
   selector: 'app-navbar',
