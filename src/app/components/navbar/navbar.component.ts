@@ -3,12 +3,12 @@ import { FormControl } from '@angular/forms';
 import { Video, SearchService, SearchResult, Course, User } from 'src/api';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
-import { switchMap, filter, debounceTime, share } from 'rxjs/operators';
+import { switchMap, filter, debounceTime } from 'rxjs/operators';
 
 @Component({
   selector: 'app-navbar',
   templateUrl: './navbar.component.html',
-  styleUrls: ['./navbar.component.css'],
+  styleUrls: ['./navbar.component.css']
 })
 export class NavbarComponent implements OnInit {
   public videoForm = new FormControl();
@@ -21,8 +21,6 @@ export class NavbarComponent implements OnInit {
       filter(searchTerm => searchTerm),
       debounceTime(500),
       switchMap(searchTerm => this.search.apiSearchGet(searchTerm)));
-
-      this.searchContent$.subscribe(e => console.log(e));
   }
 
   videoItemClick(video: Video) {
