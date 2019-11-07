@@ -17,7 +17,7 @@ import { HttpClient, HttpHeaders, HttpParams,
 import { CustomHttpParameterCodec }                          from '../encoder';
 import { Observable }                                        from 'rxjs';
 
-import { Video } from '../model/video';
+import { SearchResult } from '../model/searchResult';
 
 import { BASE_PATH, COLLECTION_FORMATS }                     from '../variables';
 import { Configuration }                                     from '../configuration';
@@ -26,7 +26,7 @@ import { Configuration }                                     from '../configurat
 @Injectable({
   providedIn: 'root'
 })
-export class VideosController2Service {
+export class SearchService {
 
     protected basePath = 'http://localhost';
     public defaultHeaders = new HttpHeaders();
@@ -49,18 +49,22 @@ export class VideosController2Service {
 
 
     /**
-     * @param name 
+     * @param query 
+     * @param limit 
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public apiVideosController2Get(name?: string, observe?: 'body', reportProgress?: boolean): Observable<Array<Video>>;
-    public apiVideosController2Get(name?: string, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Array<Video>>>;
-    public apiVideosController2Get(name?: string, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Array<Video>>>;
-    public apiVideosController2Get(name?: string, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+    public apiSearchGet(query?: string, limit?: number, observe?: 'body', reportProgress?: boolean): Observable<SearchResult>;
+    public apiSearchGet(query?: string, limit?: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<SearchResult>>;
+    public apiSearchGet(query?: string, limit?: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<SearchResult>>;
+    public apiSearchGet(query?: string, limit?: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
 
         let queryParameters = new HttpParams({encoder: this.encoder});
-        if (name !== undefined && name !== null) {
-            queryParameters = queryParameters.set('name', <any>name);
+        if (query !== undefined && query !== null) {
+            queryParameters = queryParameters.set('query', <any>query);
+        }
+        if (limit !== undefined && limit !== null) {
+            queryParameters = queryParameters.set('limit', <any>limit);
         }
 
         let headers = this.defaultHeaders;
@@ -84,7 +88,7 @@ export class VideosController2Service {
         }
 
 
-        return this.httpClient.get<Array<Video>>(`${this.configuration.basePath}/api/VideosController2`,
+        return this.httpClient.get<SearchResult>(`${this.configuration.basePath}/api/Search`,
             {
                 params: queryParameters,
                 withCredentials: this.configuration.withCredentials,

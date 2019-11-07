@@ -49,9 +49,9 @@
     text-align: center;
   }
 
-  .search-content.search-item:hover 
+  .search-item:hover 
   {
-    background-color: #f1f1f1
+    background-color: rgba(19, 83, 201, 0.801);
   }
 
   .search-item {

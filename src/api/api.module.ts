@@ -7,9 +7,9 @@ import { AuthenticationService } from './api/authentication.service';
 import { CommentsService } from './api/comments.service';
 import { CoursesService } from './api/courses.service';
 import { EnrollmentsService } from './api/enrollments.service';
+import { SearchService } from './api/search.service';
 import { VideosService } from './api/videos.service';
 import { VideostreamService } from './api/videostream.service';
-import { VideosController2Service } from './api/videosController2.service';
 
 @NgModule({
   imports:      [],
@@ -20,8 +20,8 @@ import { VideosController2Service } from './api/videosController2.service';
     CommentsService,
     CoursesService,
     EnrollmentsService,
+    SearchService,
     VideosService,
-    VideosController2Service,
     VideostreamService ]
 })
 export class ApiModule {
