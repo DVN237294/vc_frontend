@@ -4,7 +4,7 @@ import { VideosController2Service } from 'src/api';
 import { Video } from 'src/api';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
-import { switchMap, filter, debounceTime } from 'rxjs/operators';
+import { switchMap, filter, debounceTime, share } from 'rxjs/operators';
 
 @Component({
   selector: 'app-navbar',

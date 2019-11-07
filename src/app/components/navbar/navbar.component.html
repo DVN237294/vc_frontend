@@ -21,9 +21,16 @@
     </ul>
     <div class="search-container my-2 my-lg-0">
       <input class="form-control mr-sm-2" type="text" placeholder="Search" [formControl]="videoForm">
-      <div *ngIf="searchContent$ | async as _videos" class="search-content">
-        <div class="search-header">Videos</div>
-        <div (click)="searchItemClick(video)" class="search-item" *ngFor="let video of _videos">{{video.name}}</div>
+      <div *ngIf="(searchContent$ | async) as _videos ">
+        <div *ngIf="_videos?.length > 0 else noResults" class="search-content">
+          <div class="search-header">Videos</div>
+          <div (click)="searchItemClick(video)" class="search-item" *ngFor="let video of _videos">{{video.name}}</div>
+        </div>
+        <ng-template #noResults>
+          <div class="search-content">
+            <div class="search-header">No Results</div>
+          </div>
+        </ng-template>
       </div>
     </div>
     <div class="nav navbar-nav navbar-right">
