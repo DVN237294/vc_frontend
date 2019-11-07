@@ -10,4 +10,6 @@ export * from './videos.service';
 import { VideosService } from './videos.service';
 export * from './videosController2.service';
 import { VideosController2Service } from './videosController2.service';
-export const APIS = [AuthenticationService, CommentsService, CoursesService, EnrollmentsService, VideosService, VideosController2Service];
+export * from './videostream.service';
+import { VideostreamService } from './videostream.service';
+export const APIS = [AuthenticationService, CommentsService, CoursesService, EnrollmentsService, VideosService, VideosController2Service, VideostreamService];

@@ -10,15 +10,16 @@
  * Do not edit the class manually.
  */
 import { Comment } from './comment';
+import { VideoProperties } from './videoProperties';
 
 
 export interface Video { 
     id?: number;
-    url?: string | null;
-    duration?: number;
+    properties: VideoProperties;
     comments?: Array<Comment> | null;
-    name?: string | null;
+    name: string | null;
     thumbnailURL?: string | null;
-    recordTimeUtc?: Date;
+    recordTimeUtc: Date;
+    streamUrl?: string | null;
 }
 

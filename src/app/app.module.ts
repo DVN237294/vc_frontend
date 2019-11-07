@@ -95,5 +95,3 @@ export function apiConfigFactory (): Configuration {
   bootstrap: [AppComponent]
 })
 export class AppModule { }
-
-
