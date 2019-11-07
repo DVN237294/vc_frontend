@@ -19,20 +19,16 @@
         <a class="nav-link" routerLink="/about">About</a>
       </li>
     </ul>
-    <div>
-    <mat-form-field>
-        <input style="text-transform: lowercase;" matInput type="text" placeholder="Search for video name" matInput [formControl]="videoForm" 
-        [ngModel]="videoName" name="VideoName" [matAutocomplete]="auto">
-      <mat-autocomplete #auto="matAutocomplete">
-        <mat-option *ngFor="let video of videos" [value]="video.name">
-          <small>{{video.name}}</small> 
-        </mat-option>
-      </mat-autocomplete>
-      </mat-form-field>
-      <button (click)="search()" [routerLink]="['/video-menu']">Search</button>`
+    <div class="search-container my-2 my-lg-0">
+      <input class="form-control mr-sm-2" type="text" placeholder="Search" [formControl]="videoForm">
+      <div *ngIf="searchContent$ | async as _videos" class="search-content">
+        <div class="search-header">Videos</div>
+        <div (click)="searchItemClick(video)" class="search-item" *ngFor="let video of _videos">{{video.name}}</div>
+      </div>
     </div>
     <div class="nav navbar-nav navbar-right">
-      <button class="btn btn-secondary my-2 my-sm-0 dropdown" style="margin-right:0.5rem" data-toggle="dropdown">Account</button>
+      <button class="btn btn-secondary my-2 my-sm-0 dropdown" style="margin-right:0.5rem"
+        data-toggle="dropdown">Account</button>
       <app-login-window></app-login-window>
     </div>
   </div>

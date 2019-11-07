@@ -10,15 +10,14 @@ import { Router } from '@angular/router';
 export class VideoTileComponent implements OnInit {
 
   @Input() video: Video;
-  constructor(private router:Router) { 
+  constructor(private router: Router) {
   }
 
   ngOnInit() {
   }
 
-  cardClicked()
-  {
-    this.router.navigate(['video-player'], {state: this.video});
+  cardClicked() {
+    this.router.navigate(['video'], { queryParams: { vidId: this.video.id }, state: this.video });
   }
 }
 

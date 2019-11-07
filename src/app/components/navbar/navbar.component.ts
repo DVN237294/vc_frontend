@@ -1,9 +1,11 @@
-import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, Input, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
-import {VideosController2Service, AuthenticationService} from 'src/api';
-import {Video} from 'src/api';
-import {Router} from '@angular/router';
+import { VideosController2Service, AuthenticationService } from 'src/api';
+import { Video } from 'src/api';
+import { Router } from '@angular/router';
 import { VideoMenuComponent } from '../video-menu/video-menu.component';
+import { Observable, of, concat, } from 'rxjs';
+import { mergeAll, switchMap, filter, debounceTime } from 'rxjs/operators';
 
 @Component({
   selector: 'app-navbar',
@@ -11,30 +13,20 @@ import { VideoMenuComponent } from '../video-menu/video-menu.component';
   styleUrls: ['./navbar.component.css'],
 })
 export class NavbarComponent implements OnInit {
-public videoForm=new FormControl();
-videos: Video[];
-videoName: any;
+  public videoForm = new FormControl();
+  searchContent$: Observable<Video[]>;
 
-  constructor(private videoService: VideosController2Service, private user: AuthenticationService, private router: Router) { }
+  constructor(private videoService: VideosController2Service, private router: Router) { }
 
   ngOnInit() {
-    
-  this.videoForm.valueChanges.subscribe(
-    term => {
-      if(term) {
-        this.videoName = term;
-        this.videoService.apiVideosController2Get(term).subscribe(
-          data => {
-            this.videos = data;
-            console.log(data);
-          }
-        )
-      }
-    }
-  )}
-
-  search() {
-    this.router.navigateByUrl('/video-menu', {state: this.videoName});
+    this.searchContent$ = this.videoForm.valueChanges.pipe(
+      filter(searchTerm => searchTerm),
+      debounceTime(500),
+      switchMap(searchTerm => this.videoService.apiVideosController2Get(searchTerm)));
   }
-   
+
+  searchItemClick(video: Video) {
+    this.router.navigate(['video'], { queryParams: { vidId: video.id }, state: video });
+  }
+
 }

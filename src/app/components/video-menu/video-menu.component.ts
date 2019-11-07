@@ -1,8 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { VideosService, Video } from 'src/api';
-import { environment } from '../../../environments/environment'
-import { VideosController2Service } from 'src/api';
-import {Router} from '@angular/router';
+import { Video, VideosService } from 'src/api';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-video-menu',
@@ -13,20 +11,16 @@ import {Router} from '@angular/router';
 export class VideoMenuComponent implements OnInit {
 
   @Input() videos: Video[] = [];
-  videoName: any; 
-  
-  constructor(private videoApi: VideosController2Service, private router: Router) {
-    this.videoName = this.router.getCurrentNavigation().extras.state;
+
+  constructor(private videoApi: VideosService) {
   }
 
-   
   ngOnInit() {
-    this.videoApi.apiVideosController2Get(this.videoName).subscribe(
-    name => {this.videos = name; this.videoName = history.state});
-        
-    } 
-
+    if (this.videos.length === 0)
+      this.videoApi.apiVideosGet(environment.FRONTPAGE_VIDEO_LIMIT).subscribe(vids => this.videos = vids);
   }
 
- 
+}
+
+
 
