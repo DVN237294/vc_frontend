@@ -26,7 +26,7 @@
                     searchResult?.courses?.length > 0 ||
                     searchResult?.users?.length   > 0
                     else noResults" class="search-content">
-          <div *ngIf="searchResult?.courses?.length > 0" class="search-header">Courses</div>
+          <div *ngIf="searchResult?.courses?.length > 0" class="search-header" >Courses</div>
           <div (click)="courseItemClick(course)" class="search-item" *ngFor="let course of searchResult?.courses">
             {{course.name}}</div>
           <div *ngIf="searchResult?.videos?.length > 0" class="search-header">Videos</div>
