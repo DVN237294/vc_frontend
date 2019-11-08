@@ -8,6 +8,7 @@ export * from './identityError';
 export * from './identityResult';
 export * from './inlineObject';
 export * from './loginModel';
+export * from './searchResult';
 export * from './session';
 export * from './ulTokenModel';
 export * from './user';

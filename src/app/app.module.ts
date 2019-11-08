@@ -3,7 +3,8 @@ import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { ToastrModule } from 'ngx-toastr';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-
+import { FormsModule } from '@angular/forms';
+import { MatAutocompleteModule } from '@angular/material';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
@@ -26,10 +27,10 @@ import { LoginService } from './services/login.service';
 import { MyEnrollmentVideosComponent } from './components/my-enrollment-videos/my-enrollment-videos.component';
 import { FromNowPipe } from './pipes/from-now.pipe';
 
-import {MatTableModule, MatFormField} from '@angular/material';
-import {MatFormFieldModule } from '@angular/material';
-import {MatIconModule} from '@angular/material';
-import {MatInputModule} from '@angular/material';
+import { MatTableModule } from '@angular/material';
+import { MatFormFieldModule } from '@angular/material';
+import { MatIconModule} from '@angular/material';
+import { MatInputModule} from '@angular/material';
 import { AboutComponent } from './components/about/about.component';
 import { CommentsComponent } from './components/comments/comments.component';
 
@@ -52,21 +53,24 @@ export function apiConfigFactory (): Configuration {
     LoginWindowComponent,
     RegistrationComponent,
     MyEnrollmentVideosComponent,
+    AboutComponent,
     FromNowPipe,
     AboutComponent,
-    CommentsComponent
+    CommentsComponent,
   ],
   imports: [
     MatTableModule, 
     MatFormFieldModule,
     MatIconModule,
     MatInputModule,
+    MatAutocompleteModule,
     BrowserModule,
     AppRoutingModule,
     ApiModule.forRoot(apiConfigFactory),
     HttpClientModule,
     ReactiveFormsModule,
     BrowserAnimationsModule,
+    FormsModule,
     ToastrModule.forRoot({
       timeOut: 10000,
       positionClass: 'toast-bottom-right',
