@@ -7,7 +7,9 @@ import { AuthenticationService } from './api/authentication.service';
 import { CommentsService } from './api/comments.service';
 import { CoursesService } from './api/courses.service';
 import { EnrollmentsService } from './api/enrollments.service';
+import { SearchService } from './api/search.service';
 import { VideosService } from './api/videos.service';
+import { VideostreamService } from './api/videostream.service';
 
 @NgModule({
   imports:      [],
@@ -18,7 +20,9 @@ import { VideosService } from './api/videos.service';
     CommentsService,
     CoursesService,
     EnrollmentsService,
-    VideosService ]
+    SearchService,
+    VideosService,
+    VideostreamService ]
 })
 export class ApiModule {
     public static forRoot(configurationFactory: () => Configuration): ModuleWithProviders {

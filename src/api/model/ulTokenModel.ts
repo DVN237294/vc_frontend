@@ -9,15 +9,9 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-import { Comment } from './comment';
 
 
-export interface User { 
-    id?: number;
-    userName?: string | null;
-    fullName?: string | null;
-    email?: string | null;
-    isTeacher?: boolean;
-    comments?: Array<Comment> | null;
+export interface UlTokenModel { 
+    ulToken?: string | null;
 }
 

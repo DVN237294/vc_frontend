@@ -9,15 +9,14 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-import { Comment } from './comment';
+import { User } from './user';
+import { Video } from './video';
+import { Course } from './course';
 
 
-export interface User { 
-    id?: number;
-    userName?: string | null;
-    fullName?: string | null;
-    email?: string | null;
-    isTeacher?: boolean;
-    comments?: Array<Comment> | null;
+export interface SearchResult { 
+    videos?: Array<Video> | null;
+    courses?: Array<Course> | null;
+    users?: Array<User> | null;
 }
 

@@ -9,15 +9,15 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-import { Comment } from './comment';
 
 
-export interface User { 
-    id?: number;
-    userName?: string | null;
-    fullName?: string | null;
-    email?: string | null;
-    isTeacher?: boolean;
-    comments?: Array<Comment> | null;
+export interface VideoProperties { 
+    width?: number;
+    height?: number;
+    virtualFilePath?: string | null;
+    fileSize?: number;
+    mimeType: string | null;
+    duration: number;
+    containerExt: string | null;
 }
 
