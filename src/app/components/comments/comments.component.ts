@@ -25,7 +25,7 @@ export class CommentsComponent implements OnInit {
   constructor(private commentsService: CommentsService) { }
 
   ngOnInit() {
-    this.commentsService.apiCommentsVideoIdGet(this.video.id).subscribe(data => this.dataSource = new MatTableDataSource<Comment>(data));
+    //this.commentsService.apiCommentsVideoIdGet(this.video.id).subscribe(data => this.dataSource = new MatTableDataSource<Comment>(data));
   }
 
   createComment(value: string) {

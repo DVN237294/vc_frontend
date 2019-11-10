@@ -19,9 +19,9 @@
         <a class="nav-link" routerLink="/about">About</a>
       </li>
     </ul>
-    <div class="search-container my-2 my-lg-0">
-      <input class="form-control mr-sm-2" type="text" placeholder="Search" [formControl]="videoForm">
-      <div *ngIf="(searchContent$ | async) as searchResult">
+    <div class="search-container my-2 my-lg-0" (click)="resultsShown = true" (clickOutside)="resultsShown = false">
+      <input class="form-control mr-sm-2" (click)="inputHighlight($event)" type="text" placeholder="Search" [formControl]="videoForm">
+      <div *ngIf="resultsShown && (searchContent$ | async) as searchResult">
         <div *ngIf="searchResult?.videos?.length  > 0 || 
                     searchResult?.courses?.length > 0 ||
                     searchResult?.users?.length   > 0

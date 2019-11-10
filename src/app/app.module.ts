@@ -33,6 +33,7 @@ import { MatIconModule} from '@angular/material';
 import { MatInputModule} from '@angular/material';
 import { AboutComponent } from './components/about/about.component';
 import { CommentsComponent } from './components/comments/comments.component';
+import { ClickOutsideModule } from 'ng-click-outside';
 
 export function apiConfigFactory (): Configuration {
   const params: ConfigurationParameters = {
@@ -76,7 +77,8 @@ export function apiConfigFactory (): Configuration {
       positionClass: 'toast-bottom-right',
       preventDuplicates: true,
       progressBar: true
-    })
+    }), 
+    ClickOutsideModule
   ],
   providers: [ 
     {
