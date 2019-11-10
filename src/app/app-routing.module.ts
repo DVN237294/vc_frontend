@@ -10,16 +10,19 @@ import { AboutComponent } from './components/about/about.component';
 import { CommentsComponent } from './components/comments/comments.component';
 import { CoursesPageComponent } from './components/courses-page/courses-page.component';
 import { from } from 'rxjs';
+import { NavbarComponent } from './components/navbar/navbar.component';
 
 const routes: Routes = [
   { path: '', component: VideoMenuComponent, canActivate: [FrontpageGuard] },
-  { path: 'myEnrollments', component: MyEnrollmentVideosComponent, canActivate: [AuthGuard]},
-  { path: 'video-player', component: VideoPlayerComponent },
+  { path: 'video-menu', component: VideoMenuComponent },
+  { path: 'myEnrollments', component: MyEnrollmentVideosComponent, canActivate: [AuthGuard] },
+  { path: 'video', component: VideoPlayerComponent },
   { path: 'register', component: RegistrationComponent },
   { path: 'about', component: AboutComponent },
   { path: 'comments', component: CommentsComponent},
   { path: 'courses', component: CoursesPageComponent},
-  { path: 'course'}
+  { path: 'comments', component: CommentsComponent },
+  { path: 'nav-bar', component: NavbarComponent }
 ];
 
 @NgModule({

@@ -1,8 +1,10 @@
-<div id="player-overlay">
-    <h1>{{video.name}}</h1>
-    <video controls>
-        <source [src]="video.url" type="video/mp4">
-      </video>
+<div *ngIf="video$ | async as v; else vidNotFound" id="player-overlay">
+  <h1>{{v?.name}}</h1>
+  <video #videoPlayer controls>
+    <source [src]="getVideoUrl(v)" [type]="v?.properties?.mimeType !== null ? v.properties.mimeType : 'video/mp4'">
+  </video>
+  <app-comments [video]="v"></app-comments>
 </div>
-<div><app-comments></app-comments></div>
-  
+<ng-template #vidNotFound>
+  <div>The video you're looking for wasn't found.</div>
+</ng-template>

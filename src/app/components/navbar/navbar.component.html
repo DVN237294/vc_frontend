@@ -23,12 +23,33 @@
         <a class="nav-link" routerLink="/about">About</a>
       </li>
     </ul>
-    <div class="form-inline my-2 my-lg-0">
-      <input class="form-control mr-sm-2" type="text" placeholder="Search">
-      <button class="btn btn-secondary my-2 my-sm-0" type="submit" style="margin-right:0.5rem">Search</button>
+    <div class="search-container my-2 my-lg-0">
+      <input class="form-control mr-sm-2" type="text" placeholder="Search" [formControl]="videoForm">
+      <div *ngIf="(searchContent$ | async) as searchResult">
+        <div *ngIf="searchResult?.videos?.length  > 0 || 
+                    searchResult?.courses?.length > 0 ||
+                    searchResult?.users?.length   > 0
+                    else noResults" class="search-content">
+          <div *ngIf="searchResult?.courses?.length > 0" class="search-header" >Courses</div>
+          <div (click)="courseItemClick(course)" class="search-item" *ngFor="let course of searchResult?.courses">
+            {{course.name}}</div>
+          <div *ngIf="searchResult?.videos?.length > 0" class="search-header">Videos</div>
+          <div (click)="videoItemClick(video)" class="search-item" *ngFor="let video of searchResult?.videos">
+            {{video.name}}</div>
+          <div *ngIf="searchResult?.users?.length > 0" class="search-header">Users</div>
+          <div (click)="userItemClick(user)" class="search-item" *ngFor="let user of searchResult?.users">
+            {{user.fullName}}</div>
+        </div>
+        <ng-template #noResults>
+          <div class="search-content">
+            <div class="search-header">No Results</div>
+          </div>
+        </ng-template>
+      </div>
     </div>
     <div class="nav navbar-nav navbar-right">
-      <button class="btn btn-secondary my-2 my-sm-0 dropdown" style="margin-right:0.5rem" data-toggle="dropdown">Account</button>
+      <button class="btn btn-secondary my-2 my-sm-0 dropdown" style="margin-right:0.5rem"
+        data-toggle="dropdown">Account</button>
       <app-login-window></app-login-window>
     </div>
   </div>
