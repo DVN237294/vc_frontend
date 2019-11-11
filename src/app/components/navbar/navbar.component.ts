@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { Video, SearchService, SearchResult, Course, User } from 'src/api';
 import { Router } from '@angular/router';
@@ -11,6 +11,7 @@ import { switchMap, filter, debounceTime } from 'rxjs/operators';
   styleUrls: ['./navbar.component.css']
 })
 export class NavbarComponent implements OnInit {
+  resultsShown = false;
   public videoForm = new FormControl();
   searchContent$: Observable<SearchResult>;
 
@@ -23,14 +24,23 @@ export class NavbarComponent implements OnInit {
       switchMap(searchTerm => this.search.apiSearchGet(searchTerm)));
   }
 
+  inputHighlight(event)
+  {
+    if(event.target && event.target.value && event.target.setSelectionRange)
+      event.target.setSelectionRange(0, event.target.value.length);
+  }
+
   videoItemClick(video: Video) {
     this.router.navigate(['video'], { queryParams: { vidId: video.id }, state: video });
+    this.resultsShown = false;
   }
   
   courseItemClick(course: Course) {
+    this.resultsShown = false;
   }
 
   userItemClick(user: User) {
+    this.resultsShown = false;
   }
 
 }

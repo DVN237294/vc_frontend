@@ -1,9 +1,9 @@
 import { Component, OnInit, ElementRef } from '@angular/core';
 import { Video, VideosService } from 'src/api';
 import { environment } from 'src/environments/environment';
-import { ActivatedRoute, Params } from '@angular/router';
-import { Observable, of, concat } from 'rxjs';
-import { mergeAll, map, filter, distinctUntilChanged, share } from 'rxjs/operators';
+import { ActivatedRoute } from '@angular/router';
+import { Observable, of } from 'rxjs';
+import { switchMap, map, filter, shareReplay } from 'rxjs/operators';
 
 @Component({
   selector: 'app-video-player',
@@ -11,26 +11,40 @@ import { mergeAll, map, filter, distinctUntilChanged, share } from 'rxjs/operato
   styleUrls: ['./video-player.component.css']
 })
 export class VideoPlayerComponent implements OnInit {
+
   video$: Observable<Video>
+  private videoHandlerSubscribed: boolean = false;
   constructor(private videPlayer: ElementRef, private route: ActivatedRoute, private vidApi: VideosService) {
   }
 
-  ngOnInit() {
-    let historyVidStream$ = of(history.state).pipe(filter<Video>(state => state && (history.state as Video).id !== undefined));
-    let apiVidStream = this.route.queryParams.pipe(map<Params, number>(v => +v['vidId']), filter(id => id > 0), distinctUntilChanged(), map(id => this.vidApi.apiVideosIdGet(id)), mergeAll());
-    
-    //I can't for the life of me get apiVidStream to only emit when historyVidStream doesn't emit, so
-    //it'll have to be like this..
-    this.video$ = concat(historyVidStream$, apiVidStream).pipe(share());
-
-    this.video$.subscribe(e => {
-      const player = this.videPlayer.nativeElement.querySelector('video');
-      if (player) player.load();
-    })
+  videoInHistory(id:number)
+  {
+    return history.state && (history.state as Video).id == id;
   }
 
-  getVideoUrl(video:Video) {
-    return environment.API_BASE_PATH + video.streamUrl
+  ngOnInit() {
+    this.video$ = this.route.queryParams.pipe(
+      map(v => +v['vidId']),
+      filter(id => id > 0),
+      switchMap(id => this.videoInHistory(id) ? of(history.state) : this.vidApi.apiVideosIdGet(id)),
+      shareReplay());
+  }
+
+  videoDOMReady()
+  {
+    if(!this.videoHandlerSubscribed)
+      this.video$.subscribe(vid => this.loadVideo(vid)) && (this.videoHandlerSubscribed = true);
+  }
+
+  loadVideo(video: Video) {
+    const player = this.videPlayer.nativeElement.querySelector('video');
+    const source = this.videPlayer.nativeElement.querySelector('source');
+    if (player && source) {
+      player.pause();
+      source.setAttribute('src', environment.API_BASE_PATH + video.streamUrl);
+      source.setAttribute('type', video.properties ? video.properties.mimeType : 'video/mp4');
+      player.load();
+    }
   }
 }
 
