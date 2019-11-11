@@ -24,7 +24,6 @@ export class LoginService {
     localStorage.setItem('token', result.token);
     localStorage.setItem('userName', result.userName);
     this.toast.success("Successful!", "Login");
-    this.router.navigateByUrl('/myEnrollments');
   }
   private handleFailedLogin()
   {

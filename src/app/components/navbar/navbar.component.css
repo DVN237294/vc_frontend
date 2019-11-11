@@ -9,10 +9,6 @@
     overflow: auto;
   }
   
-  .search-container:hover .search-content {
-    display: block;
-  }
-
   .search-container
   {
     padding-right: 8px;
@@ -26,7 +22,7 @@
     left: 0;
     width: 100%;
     z-index: 1000;
-    display: none;
+    display: block;
     float: left;
     min-width: 10rem;
     font-size: 1rem;
