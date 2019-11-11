@@ -34,6 +34,7 @@ import { MatInputModule} from '@angular/material';
 import { AboutComponent } from './components/about/about.component';
 import { CommentsComponent } from './components/comments/comments.component';
 import { CoursesPageComponent } from './components/courses-page/courses-page.component';
+import { CoursesOverviewComponent } from './components/courses-overview/courses-overview.component';
 import { ClickOutsideModule } from 'ng-click-outside';
 
 export function apiConfigFactory (): Configuration {
@@ -60,6 +61,7 @@ export function apiConfigFactory (): Configuration {
     AboutComponent,
     CommentsComponent,
     CoursesPageComponent,
+    CoursesOverviewComponent,
   ],
   imports: [
     MatTableModule, 

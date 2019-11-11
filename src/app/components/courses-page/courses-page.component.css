@@ -1,0 +1,12 @@
+.card:hover {
+    box-shadow: 0 8px 16px 0 rgba(99, 97, 97, 0.2);
+  }
+
+  .card {
+    transition: 0.3s;
+    border-radius: 5px; /* 5px rounded corners */
+  }
+
+  .card-deck { padding: 40px; }
+ 
+

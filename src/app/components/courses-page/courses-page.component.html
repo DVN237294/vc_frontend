@@ -1,16 +1,19 @@
-<div class="container">
-    <div *ngFor="let course of courses" id="overview">
-<div class="card border-primary mb-3" style="max-width: 20rem;">
+<div class="card-deck">
+    <div *ngFor="let course of courses " id="overview">
+<div class="card border-secondary mb-3" style="max-width: 20rem;">
     <div class="card-header" id="{{ 'heading-' + course?.id }}">
-        <h5 class="mb-3">
-            <a class="card-link">
+        <h5 class="mb-1">
+            <a class="card-link" routerLink="/coursesOverview">
                 {{course?.name}}
         </a>
         </h5>
         <div class="card-body">
-      <h2 class="card-title">lastUpdated: {{getSessionDates(course?.sessions)}}</h2>
       <p class="card-text">Teacher: {{getTeacher(course?.sessions)}}</p>
+      <div class="card-footer">
+          <small class="text-muted">lastUpdated: {{getSessionDates(course?.sessions) | fromNow }}</small>
+        </div>
     </div>
   </div>
+</div>
 </div>
 </div>

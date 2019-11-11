@@ -8,6 +8,7 @@ import { AuthGuard } from './guards/authguard.guard';
 import { AboutComponent } from './components/about/about.component';
 import { CommentsComponent } from './components/comments/comments.component';
 import { CoursesPageComponent } from './components/courses-page/courses-page.component';
+import {CoursesOverviewComponent} from './components/courses-overview/courses-overview.component';
 import { from } from 'rxjs';
 import { NavbarComponent } from './components/navbar/navbar.component';
 
@@ -20,6 +21,7 @@ const routes: Routes = [
   { path: 'about', component: AboutComponent },
   { path: 'comments', component: CommentsComponent},
   { path: 'courses', component: CoursesPageComponent},
+  {path: 'coursesOverview', component: CoursesOverviewComponent},
   { path: 'comments', component: CommentsComponent },
   { path: 'nav-bar', component: NavbarComponent }
 ];
