@@ -1,20 +1,22 @@
-<div class="container">
-        <div *ngFor="let course of courses" id="overview">
-            <div class="card">
-                <div class="card-header" id="{{ 'heading-' + course?.id }}">
-                    <h5 class="mb-0">
-                        <button class="btn btn-link" data-toggle="collapse" 
-                            [attr.data-target]="'#collapse-' + course?.id" aria-expanded="true" [attr.aria-controls]="'#collapse-' + course?.id">
-                            {{course?.name}}
-                        </button>
-                    </h5>
-                </div>
-                <div id="{{ 'collapse-' + course?.id }}" class="collapse show" [attr.aria-labelledby]="'heading-' + course?.id">
+<ul class="nav nav-tabs">
+            <li class="nav-item">
+              <a class="nav-link active" data-toggle="tab" href="#overview">Course Overview</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" data-toggle="tab" href="#participants">Participants</a>
+          </ul>
+          <div id="myTabContent" class="tab-content">
+            <div class="tab-pane fade show active" id="overview">
+                <div class="card-deck"> 
+                <div class="card">
+              <div class="card-header">
+                  <h3>Course: {{course.name}}</h3>
+              </div>
                     <div class="card-body">
-                        <app-video-menu [videos]="this.flattenSessionVideos(course?.sessions)"></app-video-menu>
-                    </div>
+                        <app-video-menu [videos]="this.getVideos(course?.sessions)"></app-video-menu>
+                        </div>
                 </div>
+                </div>
+            <div class="tab-pane fade" id="participants">
+                    <li>{{this.getParticipants(course?.sessions)}}</li>
             </div>
-        </div>
-    </div>
-

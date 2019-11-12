@@ -8,16 +8,21 @@ import { environment } from 'src/environments/environment';
   styleUrls: ['./courses-overview.component.css']
 })
 export class CoursesOverviewComponent implements OnInit {
-  courses: Course[];
+  course: Course;
+  videos: Video[];
 
-  constructor(private coursesService: CoursesService) { }
+  constructor() { 
+  }
 
   ngOnInit() {
-    this.coursesService.apiCoursesGet(environment.FRONTPAGE_VIDEO_LIMIT, true, true, true).subscribe(data => this.courses = data);
+    this.course = history.state;
   }
   
-  flattenSessionVideos(sessions: Session[]):Video[] {
-    return [].concat.apply([], sessions.map(s => s.recordings).filter(e => e != null));
+  getVideos(sessions: Session[]) {
+    return sessions.map(s => s.recordings).filter(e => e != null);
+    
   }
-
-}
+  getParticipants(sessions: Session[]) {
+    return sessions.map(s => s.participants);
+  }
+  }
