@@ -6,7 +6,6 @@ import { VideoPlayerComponent } from './components/video-player/video-player.com
 import { MyEnrollmentVideosComponent } from './components/my-enrollment-videos/my-enrollment-videos.component';
 import { AuthGuard } from './guards/authguard.guard';
 import { AboutComponent } from './components/about/about.component';
-import { CommentsComponent } from './components/comments/comments.component';
 import { CoursesPageComponent } from './components/courses-page/courses-page.component';
 import {CoursesOverviewComponent} from './components/courses-overview/courses-overview.component';
 import { from } from 'rxjs';
@@ -19,10 +18,8 @@ const routes: Routes = [
   { path: 'video', component: VideoPlayerComponent },
   { path: 'register', component: RegistrationComponent },
   { path: 'about', component: AboutComponent },
-  { path: 'comments', component: CommentsComponent},
   { path: 'courses', component: CoursesPageComponent},
-  {path: 'coursesOverview', component: CoursesOverviewComponent},
-  { path: 'comments', component: CommentsComponent },
+  { path: 'coursesOverview', component: CoursesOverviewComponent},
   { path: 'nav-bar', component: NavbarComponent }
 ];
 
