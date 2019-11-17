@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import {CoursesService, VideosService, Course, EnrollmentsService, Enrollment, Session, Video} from 'src/api';
 import { environment } from 'src/environments/environment';
+import { Observable, of } from 'rxjs';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-courses-overview',
@@ -9,9 +11,8 @@ import { environment } from 'src/environments/environment';
 })
 export class CoursesOverviewComponent implements OnInit {
   course: Course;
-  videos: Video[];
 
-  constructor() { 
+  constructor(private courseApi: CoursesService, private route: ActivatedRoute) {
   }
 
   ngOnInit() {

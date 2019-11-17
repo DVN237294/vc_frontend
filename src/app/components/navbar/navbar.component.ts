@@ -40,7 +40,7 @@ export class NavbarComponent implements OnInit {
   }
   
   courseItemClick(course: Course) {
-    this.router.navigate(['coursesOverview'], { queryParams: { courseId: course.id }, state: course });
+    this.router.navigate(['coursesOverview'], {state: course });
     this.resultsShown = false;
   }
 
