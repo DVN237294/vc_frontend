@@ -25,7 +25,7 @@ export class NavbarComponent implements OnInit {
       debounceTime(500),
       switchMap(searchTerm => this.search.apiSearchGet(searchTerm)));
 
-      this.coursesService.apiCoursesGet(environment.FRONTPAGE_VIDEO_LIMIT, false, false, false).subscribe(data => this.courses = data);
+      this.coursesService.apiCoursesGet(environment.FRONTPAGE_VIDEO_LIMIT, true, true, true).subscribe(data => this.courses = data);
   }
 
   inputHighlight(event)

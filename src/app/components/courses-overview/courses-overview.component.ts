@@ -12,7 +12,8 @@ import { ActivatedRoute } from '@angular/router';
 export class CoursesOverviewComponent implements OnInit {
   course: Course;
   users: User[];
-  
+  video: Video[];
+
   constructor(private courseApi: CoursesService, private route: ActivatedRoute) {
   }
 
@@ -24,11 +25,11 @@ export class CoursesOverviewComponent implements OnInit {
     return this.course.name;
   }
   
-  getVideos() {
-    return this.course.sessions.map(s => s.recordings).filter(e => e != null);
+  getVideos(): Video[] {
+    return [].concat.apply([],this.course.sessions.map(s => s.recordings).filter(e => e != null));
     
   }
   getParticipants(): User[] {
-    return [].concat.apply([], this.course.sessions.map(s => s.participants).filter(e=> e!= null));
+    return [].concat.apply([], this.course.sessions.map(s => s.participants.map(p=>p.fullName + "(" + p.id + ")")).filter(e=> e!= null));
   }
   }
