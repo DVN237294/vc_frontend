@@ -25,7 +25,7 @@ export class CoursesPageComponent implements OnInit {
   }
 
   getTeacher(sessions: Session[]) {
-    return sessions.map(s => s.participants.filter(u=>u.isTeacher).map(function(u) {return u.fullName}));
+    return sessions.map(s => s.participants.filter(u=>u.isTeacher).map(t=>t.fullName));
   }
 }
 

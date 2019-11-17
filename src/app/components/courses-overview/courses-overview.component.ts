@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {CoursesService, VideosService, Course, EnrollmentsService, Enrollment, Session, Video} from 'src/api';
+import {CoursesService, VideosService, Course, EnrollmentsService, Enrollment, Session, Video, User} from 'src/api';
 import { environment } from 'src/environments/environment';
 import { Observable, of } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
@@ -11,19 +11,24 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class CoursesOverviewComponent implements OnInit {
   course: Course;
-
+  users: User[];
+  
   constructor(private courseApi: CoursesService, private route: ActivatedRoute) {
   }
 
   ngOnInit() {
     this.course = history.state;
   }
+
+  getName() {
+    return this.course.name;
+  }
   
-  getVideos(sessions: Session[]) {
-    return sessions.map(s => s.recordings).filter(e => e != null);
+  getVideos() {
+    return this.course.sessions.map(s => s.recordings).filter(e => e != null);
     
   }
-  getParticipants(sessions: Session[]) {
-    return sessions.map(s => s.participants);
+  getParticipants(): User[] {
+    return [].concat.apply([], this.course.sessions.map(s => s.participants).filter(e=> e!= null));
   }
   }
