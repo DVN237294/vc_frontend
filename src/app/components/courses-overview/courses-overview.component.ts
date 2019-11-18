@@ -30,6 +30,6 @@ export class CoursesOverviewComponent implements OnInit {
     
   }
   getParticipants(): User[] {
-    return [].concat.apply([], this.course.sessions.map(s => s.participants.map(p=>p.fullName + "(" + p.id + ")")).filter(e=> e!= null));
+    return [].concat.apply([], this.course.sessions.map(s => s.participants.filter(e=>e.id != e.id).map(p=>p.fullName + "(" + p.id + ")")).filter(e=> e!= null));
   }
   }

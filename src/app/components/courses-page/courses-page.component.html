@@ -1,9 +1,9 @@
 <div class="card-deck">
     <div *ngFor="let course of courses " id="overview">
-<div class="card border-secondary mb-3" style="max-width: 20rem;">
+<div routerLink="/coursesOverview" class="card border-secondary mb-3" style="max-width: 20rem;">
     <div class="card-header" id="{{ 'heading-' + course?.id }}">
         <h5 class="mb-1">
-            <a class="card-link" routerLink="/coursesOverview">
+            <a class="card-title">
                 {{course?.name}}
         </a>
         </h5>
