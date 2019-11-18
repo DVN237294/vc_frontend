@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import {CoursesService, VideosService, Course, EnrollmentsService, Enrollment, Session, Video, User} from 'src/api';
 import { environment } from 'src/environments/environment';
 import { last } from 'rxjs/operators';
@@ -11,7 +12,7 @@ import { last } from 'rxjs/operators';
 export class CoursesPageComponent implements OnInit {
   courses: Course[];
   
-  constructor(private coursesService: CoursesService) { }
+  constructor(private coursesService: CoursesService, private router: Router) { }
 
   ngOnInit() {
     this.coursesService.apiCoursesGet(15, true, true, true).subscribe(data => this.courses = data);  
@@ -23,6 +24,10 @@ export class CoursesPageComponent implements OnInit {
 
   getTeacher(sessions: Session[]) {
     return sessions.map(s => s.participants.filter(u=>u.isTeacher).map(t=>t.fullName));
+  }
+
+  courseItemClick(course: Course) {
+    this.router.navigate(['coursesOverview'], { queryParams: { courseId: course.id }, state: course });
   }
 }
 

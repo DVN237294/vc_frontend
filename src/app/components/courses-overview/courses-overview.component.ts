@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Course, CoursesService, User, Video, Session } from 'src/api';
 import { Observable, of } from 'rxjs';
-import { switchMap, map, filter, shareReplay } from 'rxjs/operators';
+import { switchMap, tap, map, filter, shareReplay } from 'rxjs/operators';
 
 @Component({
   selector: 'app-courses-overview',
@@ -17,10 +17,12 @@ export class CoursesOverviewComponent implements OnInit {
 
   ngOnInit() {
     this.course$ = this.route.queryParams.pipe(
+      tap(e => console.log(e)),
       map(v => +v['courseId']),
       filter(id => id > 0),
       switchMap(id => this.courseInHistory(id) ? of(history.state) : this.courseApi.apiCoursesIdGet(id, true, true, true)),
       shareReplay());
+
   }
 
 
