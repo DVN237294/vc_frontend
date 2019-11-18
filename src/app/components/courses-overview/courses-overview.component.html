@@ -1,6 +1,7 @@
+<div *ngIf="course$ | async as c; else courseNotFound" >
 <ul class="nav nav-tabs">
     <a class="navbar-brand">
-        <img src="/assets/course.jpg" width="30" height="30" class="d-inline-block align-top" alt="">{{getName()}}</a>
+        <img src="/assets/course.jpg" width="30" height="30" class="d-inline-block align-top" alt="">{{c?.name}}</a>
             <li class="nav-item">
               <a class="nav-link active" data-toggle="tab" href="#overview">Course Overview</a>
             </li>
@@ -12,12 +13,13 @@
                 <div class="card-deck"> 
                 <div class="card">
                     <div class="card-body">
-                        <app-video-menu [videos]="this.getVideos()"></app-video-menu>
+                        <app-video-menu [videos]="this.getVideos(c?.sessions)"></app-video-menu>
                         </div>
                 </div>
                 </div>
                 </div>
             <div class="tab-pane fade" id="participants">
-                    <li>{{this.getParticipants()}}</li>
+                    <li>{{this.getParticipants(c?.sessions)}}</li>
             </div>
             </div>
+          </div>

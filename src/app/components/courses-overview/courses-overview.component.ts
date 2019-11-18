@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import {CoursesService, VideosService, Course, EnrollmentsService, Enrollment, Session, Video, User} from 'src/api';
-import { environment } from 'src/environments/environment';
-import { Observable, of } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
+import { Course, CoursesService, User, Video, Session } from 'src/api';
+import { Observable, of } from 'rxjs';
+import { switchMap, map, filter, shareReplay } from 'rxjs/operators';
 
 @Component({
   selector: 'app-courses-overview',
@@ -10,26 +10,34 @@ import { ActivatedRoute } from '@angular/router';
   styleUrls: ['./courses-overview.component.css']
 })
 export class CoursesOverviewComponent implements OnInit {
-  course: Course;
-  users: User[];
-  video: Video[];
-
+  course$: Observable<Course>;
+  
   constructor(private courseApi: CoursesService, private route: ActivatedRoute) {
   }
 
   ngOnInit() {
-    this.course = history.state;
+    this.course$ = this.route.queryParams.pipe(
+      map(v => +v['courseId']),
+      filter(id => id > 0),
+      switchMap(id => this.courseInHistory(id) ? of(history.state) : this.courseApi.apiCoursesIdGet(id, true, true, true)),
+      shareReplay());
   }
 
-  getName() {
-    return this.course.name;
+
+  getVideos(sessions: Session[]): Video[] {
+    return [].concat.apply([], sessions.map(s => s.recordings).filter(e => e != null));
+
   }
+  getParticipants(sessions: Session[]): User[] {
+    return [].concat.apply([], sessions.map(s => s.participants.filter((u, i, a) => a.indexOf(u) == i).map(p => p.fullName + "(" + p.id + ")")).filter(e => e != null));
+  }
+
+
+  courseInHistory(id:number)
+  {
+    return history.state && (history.state as Course).id == id;
+  }
+
+}
+
   
-  getVideos(): Video[] {
-    return [].concat.apply([],this.course.sessions.map(s => s.recordings).filter(e => e != null));
-    
-  }
-  getParticipants(): User[] {
-    return [].concat.apply([], this.course.sessions.map(s => s.participants.filter(e=>e.id != e.id).map(p=>p.fullName + "(" + p.id + ")")).filter(e=> e!= null));
-  }
-  }

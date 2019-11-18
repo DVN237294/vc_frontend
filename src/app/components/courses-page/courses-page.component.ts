@@ -10,14 +10,11 @@ import { last } from 'rxjs/operators';
 })
 export class CoursesPageComponent implements OnInit {
   courses: Course[];
-  users: User[];
-  lastUpdated: any;
-  sessions: Session[];
   
   constructor(private coursesService: CoursesService) { }
 
   ngOnInit() {
-    this.coursesService.apiCoursesGet(environment.FRONTPAGE_VIDEO_LIMIT, true, true, true).subscribe(data => this.courses = data);  
+    this.coursesService.apiCoursesGet(15, true, true, true).subscribe(data => this.courses = data);  
   }
   
   getSessionDates(sessions: Session[]) {
