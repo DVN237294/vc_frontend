@@ -17,6 +17,7 @@ export interface User {
     userName?: string | null;
     fullName?: string | null;
     email?: string | null;
+    isTeacher?: boolean;
     comments?: Array<Comment> | null;
 }
 
