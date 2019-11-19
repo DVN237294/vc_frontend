@@ -1,7 +1,7 @@
 <h3>Courses Available</h3>
 <div class="card-deck">
     <div *ngFor="let course of courses " id="overview">
-<div routerLink="/coursesOverview" (click)="courseItemClick(course)" class="card border-secondary mb-3" style="max-width: 20rem;">
+<div (click)="courseItemClick(course)" class="card border-secondary mb-3" style="max-width: 20rem;">
     <div class="card-header" id="{{ 'heading-' + course?.id }}">
         <h5 class="mb-1">
             <a class="card-title">
