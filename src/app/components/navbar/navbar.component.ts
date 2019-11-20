@@ -45,6 +45,7 @@ export class NavbarComponent implements OnInit {
   }
 
   userItemClick(user: User) {
+    this.router.navigate(['user'], { queryParams: { userId: user.id }, state: user });
     this.resultsShown = false;
   }
 
