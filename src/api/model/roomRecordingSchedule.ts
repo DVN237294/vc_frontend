@@ -9,13 +9,12 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-import { Session } from './session';
+import { ScheduledSession } from './scheduledSession';
 
 
-export interface Course { 
-    readonly id?: number;
-    webuntisCourseId?: number;
-    name?: string | null;
-    sessions?: Array<Session> | null;
+export interface RoomRecordingSchedule { 
+    validFrom?: Date;
+    validTo?: Date;
+    scheduledSessions?: Array<ScheduledSession> | null;
 }
 

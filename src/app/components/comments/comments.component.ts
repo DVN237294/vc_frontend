@@ -1,6 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { MatTableDataSource } from '@angular/material';
-import { Comment, CommentsService, Video } from 'src/api';
+import { Comment, CommentsService, Video, User } from 'src/api';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-comments',
@@ -22,7 +23,7 @@ export class CommentsComponent implements OnInit {
 
   dataSource = new MatTableDataSource<Comment>();
   displayedColumns: string[] = ['user', 'comment', 'commentdate', 'actions'];
-  constructor(private commentsService: CommentsService) { }
+  constructor(private commentsService: CommentsService, private router: Router) { }
 
   ngOnInit() {
     //this.commentsService.apiCommentsVideoIdGet(this.video.id).subscribe(data => this.dataSource = new MatTableDataSource<Comment>(data));
@@ -49,6 +50,10 @@ export class CommentsComponent implements OnInit {
         }
       )
     }
+  }
+
+  userItemClick(user: User) {
+    this.router.navigate(['user'], { queryParams: { userId: user.id }, state: user });
   }
 }
 

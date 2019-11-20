@@ -17,8 +17,9 @@ import { HttpClient, HttpHeaders, HttpParams,
 import { CustomHttpParameterCodec }                          from '../encoder';
 import { Observable }                                        from 'rxjs';
 
-import { UlTokenModel } from '../model/ulTokenModel';
-import { Video } from '../model/video';
+import { Room } from '../model/room';
+import { RoomRecordingSchedule } from '../model/roomRecordingSchedule';
+import { ScheduledSession } from '../model/scheduledSession';
 
 import { BASE_PATH, COLLECTION_FORMATS }                     from '../variables';
 import { Configuration }                                     from '../configuration';
@@ -27,7 +28,7 @@ import { Configuration }                                     from '../configurat
 @Injectable({
   providedIn: 'root'
 })
-export class VideostreamService {
+export class ScheduleService {
 
     protected basePath = 'http://localhost:58180';
     public defaultHeaders = new HttpHeaders();
@@ -47,30 +48,17 @@ export class VideostreamService {
         this.encoder = this.configuration.encoder || new CustomHttpParameterCodec();
     }
 
-    /**
-     * @param consumes string[] mime-types
-     * @return true: consumes contains 'multipart/form-data', false: otherwise
-     */
-    private canConsumeForm(consumes: string[]): boolean {
-        const form = 'multipart/form-data';
-        for (const consume of consumes) {
-            if (form === consume) {
-                return true;
-            }
-        }
-        return false;
-    }
 
 
     /**
-     * @param video 
+     * @param room 
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public apiVideostreamPost(video?: Video, observe?: 'body', reportProgress?: boolean): Observable<UlTokenModel>;
-    public apiVideostreamPost(video?: Video, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<UlTokenModel>>;
-    public apiVideostreamPost(video?: Video, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<UlTokenModel>>;
-    public apiVideostreamPost(video?: Video, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+    public apiScheduleAddRoomPost(room?: Room, observe?: 'body', reportProgress?: boolean): Observable<Room>;
+    public apiScheduleAddRoomPost(room?: Room, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Room>>;
+    public apiScheduleAddRoomPost(room?: Room, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Room>>;
+    public apiScheduleAddRoomPost(room?: Room, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
 
         let headers = this.defaultHeaders;
 
@@ -104,8 +92,8 @@ export class VideostreamService {
             headers = headers.set('Content-Type', httpContentTypeSelected);
         }
 
-        return this.httpClient.post<UlTokenModel>(`${this.configuration.basePath}/api/Videostream`,
-            video,
+        return this.httpClient.post<Room>(`${this.configuration.basePath}/api/Schedule/AddRoom`,
+            room,
             {
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
@@ -116,20 +104,26 @@ export class VideostreamService {
     }
 
     /**
-     * @param ulToken 
-     * @param body payload
+     * @param roomName 
+     * @param startUtc 
+     * @param endUtc 
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public apiVideostreamUlTokenBodyPost(ulToken: string, body: Blob, observe?: 'body', reportProgress?: boolean): Observable<Video>;
-    public apiVideostreamUlTokenBodyPost(ulToken: string, body: Blob, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Video>>;
-    public apiVideostreamUlTokenBodyPost(ulToken: string, body: Blob, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Video>>;
-    public apiVideostreamUlTokenBodyPost(ulToken: string, body: Blob, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
-        if (ulToken === null || ulToken === undefined) {
-            throw new Error('Required parameter ulToken was null or undefined when calling apiVideostreamUlTokenBodyPost.');
+    public apiScheduleForRoomRoomNameGet(roomName: string, startUtc?: Date, endUtc?: Date, observe?: 'body', reportProgress?: boolean): Observable<RoomRecordingSchedule>;
+    public apiScheduleForRoomRoomNameGet(roomName: string, startUtc?: Date, endUtc?: Date, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<RoomRecordingSchedule>>;
+    public apiScheduleForRoomRoomNameGet(roomName: string, startUtc?: Date, endUtc?: Date, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<RoomRecordingSchedule>>;
+    public apiScheduleForRoomRoomNameGet(roomName: string, startUtc?: Date, endUtc?: Date, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+        if (roomName === null || roomName === undefined) {
+            throw new Error('Required parameter roomName was null or undefined when calling apiScheduleForRoomRoomNameGet.');
         }
-        if (body === null || body === undefined) {
-            throw new Error('Required parameter body was null or undefined when calling apiVideostreamUlTokenBodyPost.');
+
+        let queryParameters = new HttpParams({encoder: this.encoder});
+        if (startUtc !== undefined && startUtc !== null) {
+            queryParameters = queryParameters.set('startUtc', <any>startUtc.toISOString());
+        }
+        if (endUtc !== undefined && endUtc !== null) {
+            queryParameters = queryParameters.set('endUtc', <any>endUtc.toISOString());
         }
 
         let headers = this.defaultHeaders;
@@ -153,135 +147,106 @@ export class VideostreamService {
         }
 
 
+        return this.httpClient.get<RoomRecordingSchedule>(`${this.configuration.basePath}/api/Schedule/ForRoom/${encodeURIComponent(String(roomName))}`,
+            {
+                params: queryParameters,
+                withCredentials: this.configuration.withCredentials,
+                headers: headers,
+                observe: observe,
+                reportProgress: reportProgress
+            }
+        );
+    }
+
+    /**
+     * @param limit 
+     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+     * @param reportProgress flag to report request and response progress.
+     */
+    public apiScheduleGetRoomsGet(limit?: number, observe?: 'body', reportProgress?: boolean): Observable<Array<Room>>;
+    public apiScheduleGetRoomsGet(limit?: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Array<Room>>>;
+    public apiScheduleGetRoomsGet(limit?: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Array<Room>>>;
+    public apiScheduleGetRoomsGet(limit?: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+
+        let queryParameters = new HttpParams({encoder: this.encoder});
+        if (limit !== undefined && limit !== null) {
+            queryParameters = queryParameters.set('limit', <any>limit);
+        }
+
+        let headers = this.defaultHeaders;
+
+        // authentication (bearer) required
+        if (this.configuration.accessToken) {
+            const accessToken = typeof this.configuration.accessToken === 'function'
+                ? this.configuration.accessToken()
+                : this.configuration.accessToken;
+            headers = headers.set('Authorization', 'Bearer ' + accessToken);
+        }
+        // to determine the Accept header
+        const httpHeaderAccepts: string[] = [
+            'text/plain',
+            'application/json',
+            'text/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        if (httpHeaderAcceptSelected !== undefined) {
+            headers = headers.set('Accept', httpHeaderAcceptSelected);
+        }
+
+
+        return this.httpClient.get<Array<Room>>(`${this.configuration.basePath}/api/Schedule/GetRooms`,
+            {
+                params: queryParameters,
+                withCredentials: this.configuration.withCredentials,
+                headers: headers,
+                observe: observe,
+                reportProgress: reportProgress
+            }
+        );
+    }
+
+    /**
+     * @param scheduledSession 
+     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+     * @param reportProgress flag to report request and response progress.
+     */
+    public apiSchedulePost(scheduledSession?: Array<ScheduledSession>, observe?: 'body', reportProgress?: boolean): Observable<any>;
+    public apiSchedulePost(scheduledSession?: Array<ScheduledSession>, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
+    public apiSchedulePost(scheduledSession?: Array<ScheduledSession>, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
+    public apiSchedulePost(scheduledSession?: Array<ScheduledSession>, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+
+        let headers = this.defaultHeaders;
+
+        // authentication (bearer) required
+        if (this.configuration.accessToken) {
+            const accessToken = typeof this.configuration.accessToken === 'function'
+                ? this.configuration.accessToken()
+                : this.configuration.accessToken;
+            headers = headers.set('Authorization', 'Bearer ' + accessToken);
+        }
+        // to determine the Accept header
+        const httpHeaderAccepts: string[] = [
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        if (httpHeaderAcceptSelected !== undefined) {
+            headers = headers.set('Accept', httpHeaderAcceptSelected);
+        }
+
+
         // to determine the Content-Type header
         const consumes: string[] = [
-            'application/octet-stream'
+            'application/json',
+            'text/json',
+            'application/_*+json'
         ];
         const httpContentTypeSelected: string | undefined = this.configuration.selectHeaderContentType(consumes);
         if (httpContentTypeSelected !== undefined) {
             headers = headers.set('Content-Type', httpContentTypeSelected);
         }
 
-        return this.httpClient.post<Video>(`${this.configuration.basePath}/api/Videostream/${encodeURIComponent(String(ulToken))}/body`,
-            body,
+        return this.httpClient.post<any>(`${this.configuration.basePath}/api/Schedule`,
+            scheduledSession,
             {
-                withCredentials: this.configuration.withCredentials,
-                headers: headers,
-                observe: observe,
-                reportProgress: reportProgress
-            }
-        );
-    }
-
-    /**
-     * @param ulToken 
-     * @param file 
-     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
-     * @param reportProgress flag to report request and response progress.
-     */
-    public apiVideostreamUlTokenPost(ulToken: string, file?: Array<Blob>, observe?: 'body', reportProgress?: boolean): Observable<Video>;
-    public apiVideostreamUlTokenPost(ulToken: string, file?: Array<Blob>, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Video>>;
-    public apiVideostreamUlTokenPost(ulToken: string, file?: Array<Blob>, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Video>>;
-    public apiVideostreamUlTokenPost(ulToken: string, file?: Array<Blob>, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
-        if (ulToken === null || ulToken === undefined) {
-            throw new Error('Required parameter ulToken was null or undefined when calling apiVideostreamUlTokenPost.');
-        }
-
-        let headers = this.defaultHeaders;
-
-        // authentication (bearer) required
-        if (this.configuration.accessToken) {
-            const accessToken = typeof this.configuration.accessToken === 'function'
-                ? this.configuration.accessToken()
-                : this.configuration.accessToken;
-            headers = headers.set('Authorization', 'Bearer ' + accessToken);
-        }
-        // to determine the Accept header
-        const httpHeaderAccepts: string[] = [
-            'text/plain',
-            'application/json',
-            'text/json'
-        ];
-        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        if (httpHeaderAcceptSelected !== undefined) {
-            headers = headers.set('Accept', httpHeaderAcceptSelected);
-        }
-
-        // to determine the Content-Type header
-        const consumes: string[] = [
-            'multipart/form-data'
-        ];
-
-        const canConsumeForm = this.canConsumeForm(consumes);
-
-        let formParams: { append(param: string, value: any): any; };
-        let useForm = false;
-        let convertFormParamsToString = false;
-        // use FormData to transmit files using content-type "multipart/form-data"
-        // see https://stackoverflow.com/questions/4007969/application-x-www-form-urlencoded-or-multipart-form-data
-        useForm = canConsumeForm;
-        if (useForm) {
-            formParams = new FormData();
-        } else {
-            formParams = new HttpParams({encoder: this.encoder});
-        }
-
-        if (file) {
-            if (useForm) {
-                file.forEach((element) => {
-                    formParams = formParams.append('file', <any>element) as any || formParams;
-            })
-            } else {
-                formParams = formParams.append('file', file.join(COLLECTION_FORMATS['csv'])) as any || formParams;
-            }
-        }
-
-        return this.httpClient.post<Video>(`${this.configuration.basePath}/api/Videostream/${encodeURIComponent(String(ulToken))}`,
-            convertFormParamsToString ? formParams.toString() : formParams,
-            {
-                withCredentials: this.configuration.withCredentials,
-                headers: headers,
-                observe: observe,
-                reportProgress: reportProgress
-            }
-        );
-    }
-
-    /**
-     * @param videoId 
-     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
-     * @param reportProgress flag to report request and response progress.
-     */
-    public apiVideostreamVideoIdGet(videoId: number, observe?: 'body', reportProgress?: boolean): Observable<Blob>;
-    public apiVideostreamVideoIdGet(videoId: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Blob>>;
-    public apiVideostreamVideoIdGet(videoId: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Blob>>;
-    public apiVideostreamVideoIdGet(videoId: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
-        if (videoId === null || videoId === undefined) {
-            throw new Error('Required parameter videoId was null or undefined when calling apiVideostreamVideoIdGet.');
-        }
-
-        let headers = this.defaultHeaders;
-
-        // authentication (bearer) required
-        if (this.configuration.accessToken) {
-            const accessToken = typeof this.configuration.accessToken === 'function'
-                ? this.configuration.accessToken()
-                : this.configuration.accessToken;
-            headers = headers.set('Authorization', 'Bearer ' + accessToken);
-        }
-        // to determine the Accept header
-        const httpHeaderAccepts: string[] = [
-            'application/octet-stream'
-        ];
-        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        if (httpHeaderAcceptSelected !== undefined) {
-            headers = headers.set('Accept', httpHeaderAcceptSelected);
-        }
-
-
-        return this.httpClient.get(`${this.configuration.basePath}/api/Videostream/${encodeURIComponent(String(videoId))}`,
-            {
-                responseType: "blob",
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
                 observe: observe,

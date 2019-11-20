@@ -28,7 +28,7 @@ import { Configuration }                                     from '../configurat
 })
 export class VideosService {
 
-    protected basePath = 'http://localhost';
+    protected basePath = 'http://localhost:58180';
     public defaultHeaders = new HttpHeaders();
     public configuration = new Configuration();
     public encoder: HttpParameterCodec;

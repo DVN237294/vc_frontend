@@ -12,6 +12,7 @@
 
 
 export interface VideoProperties { 
+    readonly id?: number;
     width?: number;
     height?: number;
     virtualFilePath?: string | null;

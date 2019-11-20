@@ -14,7 +14,7 @@ import { Course } from './course';
 
 
 export interface Enrollment { 
-    id?: number;
+    readonly id?: number;
     user?: User;
     course?: Course;
     enrollmentDateUtc?: Date;

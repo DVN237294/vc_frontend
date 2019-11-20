@@ -17,7 +17,6 @@ import { HttpClient, HttpHeaders, HttpParams,
 import { CustomHttpParameterCodec }                          from '../encoder';
 import { Observable }                                        from 'rxjs';
 
-import { SearchResult } from '../model/searchResult';
 
 import { BASE_PATH, COLLECTION_FORMATS }                     from '../variables';
 import { Configuration }                                     from '../configuration';
@@ -26,7 +25,7 @@ import { Configuration }                                     from '../configurat
 @Injectable({
   providedIn: 'root'
 })
-export class SearchService {
+export class UsersService {
 
     protected basePath = 'http://localhost:58180';
     public defaultHeaders = new HttpHeaders();
@@ -49,22 +48,16 @@ export class SearchService {
 
 
     /**
-     * @param query 
-     * @param limit 
+     * @param id 
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public apiSearchGet(query?: string, limit?: number, observe?: 'body', reportProgress?: boolean): Observable<SearchResult>;
-    public apiSearchGet(query?: string, limit?: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<SearchResult>>;
-    public apiSearchGet(query?: string, limit?: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<SearchResult>>;
-    public apiSearchGet(query?: string, limit?: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
-
-        let queryParameters = new HttpParams({encoder: this.encoder});
-        if (query !== undefined && query !== null) {
-            queryParameters = queryParameters.set('query', <any>query);
-        }
-        if (limit !== undefined && limit !== null) {
-            queryParameters = queryParameters.set('limit', <any>limit);
+    public apiUsersIdGet(id: number, observe?: 'body', reportProgress?: boolean): Observable<any>;
+    public apiUsersIdGet(id: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
+    public apiUsersIdGet(id: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
+    public apiUsersIdGet(id: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+        if (id === null || id === undefined) {
+            throw new Error('Required parameter id was null or undefined when calling apiUsersIdGet.');
         }
 
         let headers = this.defaultHeaders;
@@ -78,9 +71,6 @@ export class SearchService {
         }
         // to determine the Accept header
         const httpHeaderAccepts: string[] = [
-            'text/plain',
-            'application/json',
-            'text/json'
         ];
         const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
         if (httpHeaderAcceptSelected !== undefined) {
@@ -88,9 +78,8 @@ export class SearchService {
         }
 
 
-        return this.httpClient.get<SearchResult>(`${this.configuration.basePath}/api/Search`,
+        return this.httpClient.get<any>(`${this.configuration.basePath}/api/Users/${encodeURIComponent(String(id))}`,
             {
-                params: queryParameters,
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
                 observe: observe,

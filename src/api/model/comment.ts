@@ -12,7 +12,7 @@
 
 
 export interface Comment { 
-    id?: number;
+    readonly id?: number;
     userName?: string | null;
     message?: string | null;
     commentTime?: Date;

@@ -1,8 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import {CoursesService, VideosService, Course, EnrollmentsService, Enrollment, Session, Video, User} from 'src/api';
-import { environment } from 'src/environments/environment';
-import { last } from 'rxjs/operators';
+import { Course, CoursesService, Session } from 'src/api';
 
 @Component({
   selector: 'app-courses-page',

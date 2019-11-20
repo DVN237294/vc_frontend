@@ -9,13 +9,18 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-import { Session } from './session';
+import { Course } from './course';
 
 
-export interface Course { 
+export interface ScheduledSession { 
     readonly id?: number;
-    webuntisCourseId?: number;
-    name?: string | null;
-    sessions?: Array<Session> | null;
+    webuntisId: number;
+    webuntisCourseId: number;
+    courseId?: number;
+    readonly course?: Course;
+    roomId: number;
+    startTime: Date;
+    endTime: Date;
+    webuntisTeacherIds?: Array<number> | null;
 }
 
