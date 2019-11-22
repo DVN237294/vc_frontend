@@ -25,7 +25,6 @@ export class VideoPlayerComponent implements OnInit {
   ngOnInit() {
     this.video$ = this.route.queryParams.pipe(
       map(v => +v['vidId']),
-      filter(id => id > 0),
       switchMap(id => this.videoInHistory(id) ? of(history.state) : this.vidApi.apiVideosIdGet(id)),
       shareReplay());
   }
