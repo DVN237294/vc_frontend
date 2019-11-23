@@ -17,9 +17,7 @@ export class CoursesOverviewComponent implements OnInit {
 
   ngOnInit() {
     this.course$ = this.route.queryParams.pipe(
-      tap(e => console.log(e)),
       map(v => +v['courseId']),
-      filter(id => id > 0),
       switchMap(id => this.courseInHistory(id) ? of(history.state) : this.courseApi.apiCoursesIdGet(id, true, true, true)),
       shareReplay());
 
