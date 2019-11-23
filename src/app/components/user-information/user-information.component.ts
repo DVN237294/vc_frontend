@@ -22,7 +22,6 @@ export class UserInformationComponent implements OnInit {
   ngOnInit() {
     this.user$ = this.route.queryParams.pipe(
       map(v => +v['userId']),
-      filter(id => id > 0),
       switchMap(id => this.userInHistory(id) ? of(history.state) : this.userApi.apiUsersIdGet(id)),
       shareReplay());
   }

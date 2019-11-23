@@ -4,8 +4,8 @@
 		    <img src="/assets/user.png" class="img-circle">
         </div>
         
-        <div *ngIf="user$ | async as u; else userNotFound" class="span8">
-            <h3>{{getUserName(u)}}</h3>
+        <div *ngIf="user$" class="span8">
+            <h3>{{u.userName}}</h3>
             <h6>Student Number: <small class="text-muted">{{u.id}}</small></h6>
             <h6>Email: <small class="text-muted">{{u.email}}</small></h6>
             <h6>Role: <small class="text-muted">{{getRole(u)}}</small></h6>

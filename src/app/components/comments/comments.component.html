@@ -8,7 +8,7 @@
         <!--User Column-->
         <ng-container matColumnDef="user">
           <th mat-header-cell *matHeaderCellDef>UserName</th>
-          <td (click)="userItemClick(user)"class="username" mat-cell *matCellDef="let element"><div>{{element.userName}}</div></td>
+          <td class="username" mat-cell *matCellDef="let element" (click)="userItemClick(element.UserId)"><div>{{element.userName}}</div></td>
         </ng-container>
       
         <!--Comment Column-->
