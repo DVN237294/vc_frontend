@@ -2,6 +2,7 @@ import { Component, OnInit, Input } from '@angular/core';
 import { MatTableDataSource } from '@angular/material';
 import { Comment, CommentsService, Video, User, UserSignupModel, UsersService } from 'src/api';
 import { Router } from '@angular/router';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-comments',
@@ -10,7 +11,7 @@ import { Router } from '@angular/router';
 })
 export class CommentsComponent implements OnInit {
   id:any;
-  user: User;
+  user$: Observable<User>;
   private _video: Video;
 
   @Input()
@@ -54,7 +55,7 @@ export class CommentsComponent implements OnInit {
   }
 
   userItemClick(id) {
-    this.router.navigate(['user'], { queryParams: { userId: id }, state: this.usersApi.apiUsersIdGet(id) });
+    this.router.navigate(['user'], { queryParams: { userId: id }});
   }
 }
 
