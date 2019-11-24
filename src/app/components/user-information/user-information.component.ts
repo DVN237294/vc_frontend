@@ -16,7 +16,7 @@ export class UserInformationComponent implements OnInit {
   
   userInHistory(id:number)
   {
-    return history.state && (history.state as User).id == id;
+    return (history.state as User).id == id;
   }
 
   ngOnInit() {
@@ -31,8 +31,5 @@ export class UserInformationComponent implements OnInit {
       return "Student"
       else
       return "Teacher"
-  }
-  getUserName(user: User) {
-    return user.userName;
   }
 }
