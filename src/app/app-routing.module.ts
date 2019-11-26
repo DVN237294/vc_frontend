@@ -7,8 +7,7 @@ import { MyEnrollmentVideosComponent } from './components/my-enrollment-videos/m
 import { AuthGuard } from './guards/authguard.guard';
 import { AboutComponent } from './components/about/about.component';
 import { CoursesPageComponent } from './components/courses-page/courses-page.component';
-import {CoursesOverviewComponent} from './components/courses-overview/courses-overview.component';
-import { from } from 'rxjs';
+import { CoursesOverviewComponent} from './components/courses-overview/courses-overview.component';
 import { UserInformationComponent } from './components/user-information/user-information.component';
 
 const routes: Routes = [
@@ -20,7 +19,6 @@ const routes: Routes = [
   { path: 'about', component: AboutComponent },
   { path: 'courses', component: CoursesPageComponent},
   { path: 'coursesOverview', component: CoursesOverviewComponent},
-
   { path: 'user', component: UserInformationComponent}
 ];
 

@@ -11,33 +11,27 @@ import { switchMap, tap, map, filter, shareReplay } from 'rxjs/operators';
 })
 export class CoursesOverviewComponent implements OnInit {
   course$: Observable<Course>;
-  
-  constructor(private courseApi: CoursesService, private route: ActivatedRoute) {
-  }
+
+  constructor(private courseApi: CoursesService, private route: ActivatedRoute) { }
 
   ngOnInit() {
     this.course$ = this.route.queryParams.pipe(
-      map(v => +v['courseId']),
+      map(v => +v.courseId),
       switchMap(id => this.courseInHistory(id) ? of(history.state) : this.courseApi.apiCoursesIdGet(id, true, true, true)),
       shareReplay());
-
   }
-
 
   getVideos(sessions: Session[]): Video[] {
     return [].concat.apply([], sessions.map(s => s.recordings).filter(e => e != null));
-
   }
+
   getParticipants(sessions: Session[]): User[] {
-    return [].concat.apply([], sessions.map(s => s.participants.filter((u, i, a) => a.indexOf(u) == i).map(p => p.fullName + "(" + p.id + ")")).filter(e => e != null));
+    const flatUsers = [].concat.apply([], sessions.map(s => s.participants));
+    const filtered = flatUsers.filter((elem, i, arr) => arr.findIndex(elem2 => elem2.id === elem.id) === i);
+    return filtered.map(p => p.fullName + '(' + p.id + ')');
   }
 
-
-  courseInHistory(id:number)
-  {
-    return history.state && (history.state as Course).id == id;
+  courseInHistory(id: number) {
+    return history.state && (history.state as Course).id === id;
   }
-
 }
-
-  

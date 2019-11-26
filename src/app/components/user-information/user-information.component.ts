@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { User, UsersService } from 'src/api';
 import { ActivatedRoute } from '@angular/router';
 import { Observable, of } from 'rxjs';
-import { switchMap, map, filter, shareReplay } from 'rxjs/operators';
+import { switchMap, map, shareReplay, tap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-user-information',
@@ -13,23 +13,23 @@ export class UserInformationComponent implements OnInit {
   user$: Observable<User>;
 
   constructor(private route: ActivatedRoute, private userApi: UsersService) { }
-  
-  userInHistory(id:number)
-  {
-    return (history.state as User).id == id;
+
+  userInHistory(id: number) {
+    return (history.state as User).id === id;
   }
 
   ngOnInit() {
     this.user$ = this.route.queryParams.pipe(
-      map(v => +v['userId']),
+      map(v => +v.userId),
       switchMap(id => this.userInHistory(id) ? of(history.state) : this.userApi.apiUsersIdGet(id)),
       shareReplay());
   }
 
   getRole(user: User) {
-    if(user.isTeacher)
-      return "Student"
-      else
-      return "Teacher"
+    if (user.isTeacher) {
+      return 'Teacher';
+    } else {
+      return 'Student';
+    }
   }
 }
