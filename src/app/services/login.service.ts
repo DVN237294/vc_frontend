@@ -9,64 +9,57 @@ import { Router } from '@angular/router';
 })
 export class LoginService {
 
-  constructor(private userService: AuthenticationService, private toast:ToastrService, private router:Router) { }
+  constructor(private userService: AuthenticationService, private toast: ToastrService, private router: Router) { }
 
-  login(userName:string, password:string)
-  {
+  login(userName: string, password: string) {
     this.userService.apiAuthenticationPost({
-      userName: userName,
-      password: password
+      userName,
+      password
     }).subscribe(r => this.handleSuccessLogin(r), () => this.handleFailedLogin());
   }
 
-  private handleSuccessLogin(result)
-  {
+  private handleSuccessLogin(result) {
     localStorage.setItem('token', result.token);
     localStorage.setItem('userName', result.userName);
-    this.toast.success("Successful!", "Login");
+    this.toast.success('Successful!', 'Login');
   }
-  private handleFailedLogin()
-  {
+  private handleFailedLogin() {
     localStorage.removeItem('token');
     localStorage.removeItem('userName');
-    this.toast.error("Failed", "Login");
+    this.toast.error('Failed', 'Login');
   }
 
-  logout()
-  {
-    localStorage.removeItem('token');
-    localStorage.removeItem('userName');
-    this.toast.info("Logged out");
-    this.router.navigateByUrl('/');
+  logout() {
+    if (localStorage.getItem('token')) {
+      localStorage.removeItem('token');
+      localStorage.removeItem('userName');
+      this.toast.info('Logged out');
+      this.router.navigateByUrl('/');
+    }
   }
 
-  isLoggedIn()
-  {
-    const loggedIn = this.getLoginToken() != null;
-    return loggedIn
+  isLoggedIn() {
+    return this.getLoginToken() != null;
   }
 
-  getLoginToken()
-  {
+  getLoginToken() {
     return localStorage.getItem('token');
   }
 
-  getUserName()
-  {
+  getUserName() {
     return localStorage.getItem('userName');
   }
 
-  registerAccount(user:UserSignupModel)
-  {
-    this.userService.apiAuthenticationRegisterPost(user).subscribe(
-      r => {
-        if (r.succeeded)
-          this.toast.success("Account created!");
-        else
+  registerAccount(user: UserSignupModel) {
+    this.userService.apiAuthenticationRegisterPost(user).subscribe({
+      next: r => {
+        if (r.succeeded) {
+          this.toast.success('Account created!');
+        } else {
           r.errors.forEach(error => this.toast.error(error.description));
+        }
       },
-      e => {
-        this.toast.error("Connection error", e.statusText);
-      });
+      error: e => this.toast.error('Connection error', e.statusText)
+    });
   }
 }

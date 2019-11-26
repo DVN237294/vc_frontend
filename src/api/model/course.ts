@@ -13,7 +13,8 @@ import { Session } from './session';
 
 
 export interface Course { 
-    id?: number;
+    readonly id?: number;
+    webuntisCourseId?: number;
     name?: string | null;
     sessions?: Array<Session> | null;
 }

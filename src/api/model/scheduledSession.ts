@@ -9,14 +9,18 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-import { User } from './user';
+import { Course } from './course';
 
 
-export interface Comment { 
+export interface ScheduledSession { 
     readonly id?: number;
-    user?: User;
-    message?: string | null;
-    commentTime?: Date;
-    deletable?: boolean;
+    webuntisId: number;
+    webuntisCourseId: number;
+    courseId?: number;
+    readonly course?: Course;
+    roomId: number;
+    startTime: Date;
+    endTime: Date;
+    webuntisTeacherIds?: Array<number> | null;
 }
 

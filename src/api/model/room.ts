@@ -9,14 +9,11 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-import { User } from './user';
 
 
-export interface Comment { 
+export interface Room { 
     readonly id?: number;
-    user?: User;
-    message?: string | null;
-    commentTime?: Date;
-    deletable?: boolean;
+    webuntisId: number;
+    name?: string | null;
 }
 

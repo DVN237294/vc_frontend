@@ -36,6 +36,7 @@ import { CommentsComponent } from './components/comments/comments.component';
 import { CoursesPageComponent } from './components/courses-page/courses-page.component';
 import { CoursesOverviewComponent } from './components/courses-overview/courses-overview.component';
 import { ClickOutsideModule } from 'ng-click-outside';
+import { UserInformationComponent } from './components/user-information/user-information.component';
 
 export function apiConfigFactory (): Configuration {
   const params: ConfigurationParameters = {
@@ -62,6 +63,7 @@ export function apiConfigFactory (): Configuration {
     CommentsComponent,
     CoursesPageComponent,
     CoursesOverviewComponent,
+    UserInformationComponent,
   ],
   imports: [
     MatTableModule, 

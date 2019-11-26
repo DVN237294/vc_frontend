@@ -14,7 +14,7 @@ import { Video } from './video';
 
 
 export interface Session { 
-    id?: number;
+    readonly id?: number;
     date?: Date;
     recordings?: Array<Video> | null;
     participants?: Array<User> | null;
