@@ -9,14 +9,12 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-import { User } from './user';
+import { ScheduledSession } from './scheduledSession';
 
 
-export interface Comment { 
-    readonly id?: number;
-    user?: User;
-    message?: string | null;
-    commentTime?: Date;
-    deletable?: boolean;
+export interface RoomRecordingSchedule { 
+    validFrom?: Date;
+    validTo?: Date;
+    scheduledSessions?: Array<ScheduledSession> | null;
 }
 

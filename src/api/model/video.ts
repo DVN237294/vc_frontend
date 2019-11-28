@@ -14,7 +14,7 @@ import { VideoProperties } from './videoProperties';
 
 
 export interface Video { 
-    id?: number;
+    readonly id?: number;
     properties: VideoProperties;
     comments?: Array<Comment> | null;
     name: string | null;
