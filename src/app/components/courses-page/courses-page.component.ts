@@ -9,19 +9,21 @@ import { Course, CoursesService, Session } from 'src/api';
 })
 export class CoursesPageComponent implements OnInit {
   courses: Course[];
-  
+
   constructor(private coursesService: CoursesService, private router: Router) { }
 
   ngOnInit() {
-    this.coursesService.apiCoursesGet(15, true, true, true).subscribe(data => this.courses = data);  
-  }
-  
-  getSessionDates(sessions: Session[]) {
-    return sessions.map(function(e) { return e.date; }).sort().reverse()[0]
+    this.coursesService.apiCoursesGet(15, true, true, true).subscribe(data => this.courses = data);
   }
 
-  getTeacher(sessions: Session[]) {
-    return sessions.map(s => s.participants.filter(u=>u.isTeacher).map(t=>t.fullName));
+  getSessionDates(sessions: Session[]) {
+    return sessions.map(function (e) { return e.date; }).sort().reverse()[0]
+  }
+
+  getTeachers(sessions: Session[]) {
+    const flatUsers = [].concat.apply([], sessions.map(s => s.participants));
+    const teachers = flatUsers.filter(u => u.isTeacher).map(t => t.fullName);
+    return teachers;
   }
 
   courseItemClick(course: Course) {

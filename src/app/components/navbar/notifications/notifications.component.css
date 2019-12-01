@@ -1,0 +1,104 @@
+.notification-icon {
+    height: 35px;
+    widows: 35px;
+}
+.notification-box
+{
+    width: 400px;
+}
+
+.notification-box-header {
+    line-height: 40px;
+    width: inherit;
+    height: 48px;
+    background-color:#f9f9f9;
+    border-radius: 4px 4px;
+    border-bottom: 1px solid#e4e4e4;
+    padding-right: 10px;
+    padding-left: 10px;
+    vertical-align: middle;
+    display: inline-block;
+}
+
+.notification-dismiss {
+    float: right;
+}
+
+.notification {
+    position: relative;
+    text-align: center;
+    border-radius: 10px;
+    min-width: 18px;
+    padding: 0 5px;
+    height: 18px;
+    font-size: 12px;
+    font-weight: bold;
+    line-height: 18px;
+    top: -9px;
+    left: -12px;
+}
+.red {
+    background-color:
+    #FB404B;
+    color:
+    #FFFFFF;
+}
+.white {
+    background-color: white;
+}
+
+.notification-item {
+    position:relative;
+    word-wrap: normal;
+    font-size: small;
+    left:0px;
+    display: table;
+}
+.notification-item-body {
+    padding: 10px 30px 10px 10px;
+}
+.notification-item span {
+    text-align: left;
+    vertical-align: middle;
+    margin-bottom: 15px;
+    font-size: large;
+}
+
+.dismiss-button:hover,.notification-item-body:hover {
+    background-color:#77777770;
+    transition: background-color 0.2s linear;
+    cursor: pointer;
+}
+
+.hidden
+{
+    visibility: hidden;
+    opacity: 0;
+    transition: left 0.33s linear, visibility 0s linear 0.33s, opacity 0.33s linear;
+    left: -200px;
+}
+
+.dismiss-button:before, .dismiss-button:after {
+    position: absolute;
+    left: 15px;
+    content: ' ';
+    height: 15px;
+    width: 2px;
+    background-color: #333;
+  }
+  .dismiss-button:before {
+    transform: rotate(45deg);
+  }
+  .dismiss-button:after {
+    transform: rotate(-45deg);
+  }
+
+.dismiss-button {
+    
+    display: table-cell;
+    color: rgb(24, 6, 6);
+
+    width: 30px;
+    height: 100%;
+    vertical-align: middle;
+}

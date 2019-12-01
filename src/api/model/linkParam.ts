@@ -9,14 +9,12 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-import { Notification } from './notification';
 
 
-export interface User { 
-    id?: number;
-    fullName?: string | null;
-    email?: string | null;
-    isTeacher?: boolean;
-    notifications?: Array<Notification> | null;
-}
+export type LinkParam = 'VideoId' | 'CommentId';
+
+export const LinkParam = {
+    VideoId: 'VideoId' as LinkParam,
+    CommentId: 'CommentId' as LinkParam
+};
 

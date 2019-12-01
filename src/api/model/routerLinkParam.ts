@@ -9,14 +9,12 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-import { Notification } from './notification';
+import { LinkParam } from './linkParam';
 
 
-export interface User { 
-    id?: number;
-    fullName?: string | null;
-    email?: string | null;
-    isTeacher?: boolean;
-    notifications?: Array<Notification> | null;
+export interface RouterLinkParam { 
+    readonly id?: number;
+    param?: LinkParam;
+    value?: string | null;
 }
 
