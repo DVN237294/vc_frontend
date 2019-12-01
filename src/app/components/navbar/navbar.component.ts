@@ -21,7 +21,7 @@ export class NavbarComponent implements OnInit {
     private search: SearchService,
     private coursesService: CoursesService,
     private router: Router,
-    private login: LoginService) { }
+    public login: LoginService) { }
 
   @ViewChild('coursesDropdown', { static: false })
   set coursesDropdown(value: ElementRef) {
