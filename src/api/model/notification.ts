@@ -9,14 +9,17 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-import { Notification } from './notification';
+import { RouterLink } from './routerLink';
+import { RouterLinkParam } from './routerLinkParam';
 
 
-export interface User { 
+export interface Notification { 
     id?: number;
-    fullName?: string | null;
-    email?: string | null;
-    isTeacher?: boolean;
-    notifications?: Array<Notification> | null;
+    userId?: number;
+    message?: string | null;
+    notificationTimeUtc?: Date;
+    dismissed?: boolean;
+    routerLink?: RouterLink;
+    routerLinkParameters?: Array<RouterLinkParam> | null;
 }
 

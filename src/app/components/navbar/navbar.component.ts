@@ -4,6 +4,7 @@ import { Video, SearchService, SearchResult, Course, User, CoursesService } from
 import { Router } from '@angular/router';
 import { Observable, fromEvent } from 'rxjs';
 import { switchMap, filter, debounceTime, tap, finalize } from 'rxjs/operators';
+import { LoginService } from 'src/app/services/login.service';
 
 @Component({
   selector: 'app-navbar',
@@ -19,7 +20,8 @@ export class NavbarComponent implements OnInit {
   constructor(
     private search: SearchService,
     private coursesService: CoursesService,
-    private router: Router) { }
+    private router: Router,
+    private login: LoginService) { }
 
   @ViewChild('coursesDropdown', { static: false })
   set coursesDropdown(value: ElementRef) {

@@ -1,0 +1,26 @@
+<div *ngIf="notifications as ntf">
+    <div data-toggle="dropdown">
+        <img class="notification-icon" src="/assets/notification-bell.png">
+        <span [class]="ntf.length > 0 ? 'notification red' : 'notification white'">{{ntf.length}}</span>
+    </div>
+    <ul class="dropdown-menu dropdown-menu-right" style="margin-right:0.5rem">
+        <div class="notification-box">
+            <div class="notification-box-header">
+                <span>Notifications</span>
+                <button class="btn btn-secondary notification-dismiss" (click)="dismissAll($event)">Dismiss all</button>
+            </div>
+            <div class="notification-box-body" *ngIf="ntf.length > 0 else notifications">
+                <li [class]="notificationClass(n)" *ngFor="let n of ntf">
+                    <a class="dismiss-button" (click)="dismiss($event, n)"></a>
+                    <div class="notification-item-body" (click)="navigate($event, n)" >
+                        <span>{{n.notification.message}}</span>
+                        <div>{{n.notification.notificationTimeUtc}}</div>
+                    </div>
+                </li>
+            </div>
+            <ng-template #notifications>
+                Happy days! You do not currently have any notifications.
+            </ng-template>
+        </div>
+    </ul>
+</div>

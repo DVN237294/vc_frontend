@@ -9,14 +9,12 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-import { Notification } from './notification';
 
 
-export interface User { 
-    id?: number;
-    fullName?: string | null;
-    email?: string | null;
-    isTeacher?: boolean;
-    notifications?: Array<Notification> | null;
-}
+export type RouterLink = 'Video' | 'Comment';
+
+export const RouterLink = {
+    Video: 'Video' as RouterLink,
+    Comment: 'Comment' as RouterLink
+};
 

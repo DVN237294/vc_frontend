@@ -29,16 +29,17 @@ import { FromNowPipe } from './pipes/from-now.pipe';
 
 import { MatTableModule } from '@angular/material';
 import { MatFormFieldModule } from '@angular/material';
-import { MatIconModule} from '@angular/material';
-import { MatInputModule} from '@angular/material';
+import { MatIconModule } from '@angular/material';
+import { MatInputModule } from '@angular/material';
 import { AboutComponent } from './components/about/about.component';
 import { CommentsComponent } from './components/comments/comments.component';
 import { CoursesPageComponent } from './components/courses-page/courses-page.component';
 import { CoursesOverviewComponent } from './components/courses-overview/courses-overview.component';
 import { ClickOutsideModule } from 'ng-click-outside';
 import { UserInformationComponent } from './components/user-information/user-information.component';
+import { NotificationsComponent } from './components/navbar/notifications/notifications.component';
 
-export function apiConfigFactory (): Configuration {
+export function apiConfigFactory(): Configuration {
   const params: ConfigurationParameters = {
     withCredentials: false,
     accessToken: () => localStorage.getItem('token')
@@ -64,9 +65,10 @@ export function apiConfigFactory (): Configuration {
     CoursesPageComponent,
     CoursesOverviewComponent,
     UserInformationComponent,
+    NotificationsComponent,
   ],
   imports: [
-    MatTableModule, 
+    MatTableModule,
     MatFormFieldModule,
     MatIconModule,
     MatInputModule,
@@ -83,23 +85,23 @@ export function apiConfigFactory (): Configuration {
       positionClass: 'toast-bottom-right',
       preventDuplicates: true,
       progressBar: true
-    }), 
+    }),
     ClickOutsideModule
   ],
-  providers: [ 
+  providers: [
     {
       provide: BASE_PATH,
-      useValue: environment.API_BASE_PATH 
+      useValue: environment.API_BASE_PATH
     },
     {
       provide: HTTP_INTERCEPTORS,
-      useFactory: function(router: Router, loginService:LoginService) {
+      useFactory: function (router: Router, loginService: LoginService) {
         return new AuthInterceptor(router, loginService);
       },
       multi: true,
       deps: [Router, LoginService]
-   },
-   ],
+    },
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

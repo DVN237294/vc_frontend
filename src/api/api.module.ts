@@ -7,6 +7,7 @@ import { AuthenticationService } from './api/authentication.service';
 import { CommentsService } from './api/comments.service';
 import { CoursesService } from './api/courses.service';
 import { EnrollmentsService } from './api/enrollments.service';
+import { NotificationService } from './api/notification.service';
 import { ScheduleService } from './api/schedule.service';
 import { SearchService } from './api/search.service';
 import { UsersService } from './api/users.service';
@@ -22,6 +23,7 @@ import { VideostreamService } from './api/videostream.service';
     CommentsService,
     CoursesService,
     EnrollmentsService,
+    NotificationService,
     ScheduleService,
     SearchService,
     UsersService,
