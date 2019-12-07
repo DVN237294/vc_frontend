@@ -10,27 +10,30 @@
         <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
       </li>
       <li *ngIf="this.login.isLoggedIn()" class="nav-item">
-          <a class="nav-link" routerLink="/myEnrollments">My Enrollments</a>
-        </li>
+        <a class="nav-link" routerLink="/myEnrollments">My Enrollments</a>
+      </li>
       <li #coursesDropdown class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Courses</a>
-          <div class="dropdown-menu">
-            <div class="dropdown-item" *ngFor="let course of courses$ | async" (click)="courseItemClick(course)">{{course?.name}}</div>
-            <div class="dropdown-divider"></div>
-            <a class="dropdown-item" routerLink="/courses">All Courses</a>
-          </div>
+        <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true"
+          aria-expanded="false">Courses</a>
+        <div class="dropdown-menu">
+          <div class="dropdown-item" *ngFor="let course of courses$ | async" (click)="courseItemClick(course)">
+            {{course?.name}}</div>
+          <div class="dropdown-divider"></div>
+          <a class="dropdown-item" routerLink="/courses">All Courses</a>
+        </div>
       <li class="nav-item">
         <a class="nav-link" routerLink="/about">About</a>
       </li>
     </ul>
     <div class="search-container my-2 my-lg-0" (click)="resultsShown = true" (clickOutside)="resultsShown = false">
-      <input class="form-control mr-sm-2" (click)="inputHighlight($event)" type="text" placeholder="Search" [formControl]="videoForm">
+      <input class="form-control mr-sm-2" (click)="inputHighlight($event)" type="text" placeholder="Search"
+        [formControl]="searchForm">
       <div *ngIf="resultsShown && (searchContent$ | async) as searchResult">
         <div *ngIf="searchResult?.videos?.length  > 0 || 
                     searchResult?.courses?.length > 0 ||
                     searchResult?.users?.length   > 0
                     else noResults" class="search-content">
-          <div *ngIf="searchResult?.courses?.length > 0" class="search-header" >Courses</div>
+          <div *ngIf="searchResult?.courses?.length > 0" class="search-header">Courses</div>
           <div (click)="courseItemClick(course)" class="search-item" *ngFor="let course of searchResult?.courses">
             {{course.name}}</div>
           <div *ngIf="searchResult?.videos?.length > 0" class="search-header">Videos</div>

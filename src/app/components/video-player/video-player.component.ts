@@ -1,9 +1,10 @@
+// tslint:disable: no-inferrable-types
 import { Component, OnInit, ElementRef } from '@angular/core';
 import { Video, VideosService } from 'src/api';
 import { environment } from 'src/environments/environment';
 import { ActivatedRoute } from '@angular/router';
 import { Observable, of } from 'rxjs';
-import { switchMap, map, filter, shareReplay } from 'rxjs/operators';
+import { switchMap, map, shareReplay } from 'rxjs/operators';
 
 @Component({
   selector: 'app-video-player',
@@ -12,27 +13,27 @@ import { switchMap, map, filter, shareReplay } from 'rxjs/operators';
 })
 export class VideoPlayerComponent implements OnInit {
 
-  video$: Observable<Video>
+  video$: Observable<Video>;
   private videoHandlerSubscribed: boolean = false;
   constructor(private videPlayer: ElementRef, private route: ActivatedRoute, private vidApi: VideosService) {
   }
 
-  videoInHistory(id:number)
-  {
-    return history.state && (history.state as Video).id == id;
+  videoInHistory(id: number) {
+    return history.state && (history.state as Video).id === id;
   }
 
   ngOnInit() {
     this.video$ = this.route.queryParams.pipe(
-      map(v => +v['vidId']),
+      map(v => +v.vidId),
       switchMap(id => this.videoInHistory(id) ? of(history.state) : this.vidApi.apiVideosIdGet(id)),
       shareReplay());
   }
 
-  videoDOMReady()
-  {
-    if(!this.videoHandlerSubscribed)
-      this.video$.subscribe(vid => this.loadVideo(vid)) && (this.videoHandlerSubscribed = true);
+  videoDOMReady() {
+    if (!this.videoHandlerSubscribed) {
+      this.video$.subscribe(vid => this.loadVideo(vid));
+      this.videoHandlerSubscribed = true;
+    }
   }
 
   loadVideo(video: Video) {

@@ -1,9 +1,9 @@
-import { Component, OnInit, ViewChild, ElementRef, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { Video, SearchService, SearchResult, Course, User, CoursesService } from 'src/api';
 import { Router } from '@angular/router';
 import { Observable, fromEvent } from 'rxjs';
-import { switchMap, filter, debounceTime, tap, finalize } from 'rxjs/operators';
+import { switchMap, filter, debounceTime, take } from 'rxjs/operators';
 import { LoginService } from 'src/app/services/login.service';
 
 @Component({
@@ -12,7 +12,7 @@ import { LoginService } from 'src/app/services/login.service';
   styleUrls: ['./navbar.component.css']
 })
 export class NavbarComponent implements OnInit {
-  public videoForm = new FormControl();
+  public searchForm = new FormControl();
   resultsShown = false;
   searchContent$: Observable<SearchResult>;
   courses$: Observable<Course[]>;
@@ -27,12 +27,13 @@ export class NavbarComponent implements OnInit {
   set coursesDropdown(value: ElementRef) {
     if (!this.courses$) {
       this.courses$ = fromEvent(value.nativeElement, 'click').pipe(
-        switchMap(() => this.coursesService.apiCoursesGet(15, true, true, true)));
+        switchMap(() => this.coursesService.apiCoursesGet(15, true, true, true)),
+        take(1));
     }
   }
 
   ngOnInit() {
-    this.searchContent$ = this.videoForm.valueChanges.pipe(
+    this.searchContent$ = this.searchForm.valueChanges.pipe(
       filter(searchTerm => searchTerm),
       debounceTime(500),
       switchMap(searchTerm => this.search.apiSearchGet(searchTerm)));
