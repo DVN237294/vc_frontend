@@ -12,7 +12,7 @@
             <div class="notification-box-body" *ngIf="ntf.length > 0 else notifications">
                 <li [class]="notificationClass(n)" *ngFor="let n of ntf">
                     <a class="dismiss-button" (click)="dismiss($event, n)"></a>
-                    <div class="notification-item-body" (click)="navigate($event, n)" >
+                    <div class="notification-item-body" (click)="navigate($event, n)">
                         <span>{{n.notification.message}}</span>
                         <div>{{n.notification.notificationTimeUtc}}</div>
                     </div>

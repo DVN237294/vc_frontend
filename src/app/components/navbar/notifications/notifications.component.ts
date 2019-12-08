@@ -1,8 +1,7 @@
-import { Component, OnInit, OnDestroy, ChangeDetectorRef } from '@angular/core';
+// tslint:disable: no-string-literal
+import { Component, OnInit } from '@angular/core';
 import { NotificationService } from 'src/api/api/notification.service';
-import { Subscription } from 'rxjs';
 import { Notification } from 'src/api/model/notification';
-import { first } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import { RouterLink } from 'src/api/model/routerLink';
 import { LinkParam } from 'src/api/model/linkParam';
@@ -12,9 +11,8 @@ import { LinkParam } from 'src/api/model/linkParam';
   templateUrl: './notifications.component.html',
   styleUrls: ['./notifications.component.css']
 })
-export class NotificationsComponent implements OnInit, OnDestroy {
+export class NotificationsComponent implements OnInit {
 
-  notificationsSubscription: Subscription;
   notifications: {
     notification: Notification;
     visible: boolean;
@@ -24,16 +22,13 @@ export class NotificationsComponent implements OnInit, OnDestroy {
     private router: Router) { }
 
   ngOnInit() {
-    this.notificationsSubscription = this.notificationService.apiNotificationGet().subscribe(
+    this.notificationService.apiNotificationGet().subscribe(
       notify => {
         this.notifications = notify.map(n => ({
           notification: n,
           visible: true
         }));
       });
-  }
-  ngOnDestroy(): void {
-    this.notificationsSubscription.unsubscribe();
   }
 
   dismiss(event: MouseEvent, n) {
@@ -77,11 +72,8 @@ export class NotificationsComponent implements OnInit, OnDestroy {
   }
 
   dismissNotification(notification) {
-    this.notificationService.apiNotificationDismissNotificationIdPut(notification.id).pipe(
-      first()
-    ).subscribe();
+    this.notificationService.apiNotificationDismissNotificationIdPut(notification.id).subscribe();
   }
-
 
   notificationClass(n) {
     return 'notification-item ' + (n.visible ? '' : 'hidden');
